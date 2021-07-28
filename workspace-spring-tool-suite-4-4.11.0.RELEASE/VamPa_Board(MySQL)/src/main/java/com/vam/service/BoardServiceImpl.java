@@ -9,7 +9,7 @@ import com.vam.model.BoardVO;
 @Service
 public class BoardServiceImpl implements BoardService {
 	
-	@Autowired
+	@Autowired(required=false)
 	private BoardMapper mapper;
 	
 	@Override
