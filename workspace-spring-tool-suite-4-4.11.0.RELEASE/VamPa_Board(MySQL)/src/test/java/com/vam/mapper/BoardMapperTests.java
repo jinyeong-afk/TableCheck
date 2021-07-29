@@ -12,12 +12,11 @@ import com.vam.model.BoardVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
-
 public class BoardMapperTests {
  
      private static final Logger log = LoggerFactory.getLogger(BoardMapperTests.class);
      
-     @Autowired
+     @Autowired(required=false)
      private BoardMapper mapper;
  
      @Test

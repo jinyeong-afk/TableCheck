@@ -110,6 +110,13 @@
 		    <version>8.0.26</version>
 		</dependency>
 		
+		<!-- https://mvnrepository.com/artifact/com.zaxxer/HikariCP --> 
+	    <dependency> 
+	        <groupId>com.zaxxer</groupId> 
+	        <artifactId>HikariCP</artifactId> 
+	        <version>3.4.2</version> 
+	    </dependency>
+		
 		<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
 		<dependency>
 		    <groupId>org.mybatis</groupId>
@@ -126,13 +133,21 @@
 		<dependency>
 		    <groupId>org.springframework</groupId>
 		    <artifactId>spring-jdbc</artifactId>
-		    <version>5.2.8.RELEASE</version>
+		    <version>${org.springframework-version}</version>
 		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.bgee.log4jdbc-log4j2/log4jdbc-log4j2-jdbc4 -->
+		<dependency>
+		    <groupId>org.bgee.log4jdbc-log4j2</groupId>
+		    <artifactId>log4jdbc-log4j2-jdbc4</artifactId>
+		    <version>1.16</version>
+		</dependency>
+		
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-tx -->
 		<dependency>
 		    <groupId>org.springframework</groupId>
 		    <artifactId>spring-tx</artifactId>
-		    <version>5.2.8.RELEASE</version>
+		    <version>${org.springframework-version}</version>
 		</dependency>
 		
 
@@ -143,13 +158,6 @@
 			<version>1</version>
 		</dependency>
 				
-		<!-- Servlet -->
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>2.5</version>
-			<scope>provided</scope>
-		</dependency>
 		<dependency>
 			<groupId>javax.servlet.jsp</groupId>
 			<artifactId>jsp-api</artifactId>
