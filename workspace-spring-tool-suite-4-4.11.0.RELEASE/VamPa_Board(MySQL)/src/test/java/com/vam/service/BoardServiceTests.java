@@ -29,12 +29,35 @@ public class BoardServiceTests {
     }*/
     
     /*게시판 조회*/
-    @Test
+   /* @Test
     public void testGETPage() {
         
         int bno = 8;
         
         log.info("" + service.getPage(bno));
+        
+    }*/
+    
+    /* 게시판 수정 */
+   /* @Test
+    public void testModify() {
+        
+        BoardVO board = new BoardVO();
+        board.setBno(8);
+        board.setTitle("수정 제목");
+        board.setContent("수정 내용");
+        
+        int result = service.modify(board);
+        log.info("result : " +result);
+        
+    }*/
+    
+    /* 게시판 삭제 */
+    @Test
+    public void testDelete() {
+        
+        int result = service.delete(9);
+        log.info("result : " + result);
         
     }
  
