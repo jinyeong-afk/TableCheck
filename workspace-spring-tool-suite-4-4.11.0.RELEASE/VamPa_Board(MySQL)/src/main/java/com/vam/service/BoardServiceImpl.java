@@ -50,5 +50,13 @@ public class BoardServiceImpl implements BoardService {
     public int delete(int bno) {
     	return mapper.delete(bno);
     }
+    
+    /* 게시물 총 갯수 */
+    @Override
+    public int getTotal() {
+        
+        return mapper.getTotal();
+    }    
+ 
 
 }

@@ -23,10 +23,7 @@ public class Criteria {
         this.skip = (pageNum-1)*amount;
     }
 
-	@Override
-	public String toString() {
-		return "Criteria [pageNum=" + pageNum + ", amount=" + amount + ", skip=" + skip + "]";
-	}
+	
 
 	public int getPageNum() {
 		return pageNum;
@@ -52,6 +49,11 @@ public class Criteria {
 
 	public void setSkip(int skip) {
 		this.skip = skip;
+	}
+	
+	@Override
+	public String toString() {
+		return "Criteria [pageNum=" + pageNum + ", amount=" + amount + ", skip=" + skip + "]";
 	}
  
 }
