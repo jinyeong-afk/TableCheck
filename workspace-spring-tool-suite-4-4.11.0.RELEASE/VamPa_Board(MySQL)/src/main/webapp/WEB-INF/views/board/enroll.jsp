@@ -10,7 +10,7 @@
 
 <h1>게시판 등록</h1>
 <form action="/board/enroll" method="post">
-	<div class=input_wrap">
+	<div class="input_wrap">
 		<label>Title</label>
 		<input name="title">
 	</div>

@@ -58,7 +58,7 @@ public class BoardController {
         
         model.addAttribute("pageMaker", pageMake);
         
-    }    
+    }
 	
 	/* 게시판 등록 페이지 접속 */
 	@GetMapping("/enroll")

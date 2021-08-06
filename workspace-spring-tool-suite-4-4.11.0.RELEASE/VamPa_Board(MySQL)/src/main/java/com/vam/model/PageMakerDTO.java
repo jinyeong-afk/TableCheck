@@ -1,6 +1,5 @@
 package com.vam.model;
 
-import com.vam.model.Criteria;
 
 public class PageMakerDTO {
 
