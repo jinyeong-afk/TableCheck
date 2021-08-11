@@ -1,5 +1,6 @@
 package practice.springpractice.repository;
 
+import org.springframework.stereotype.Repository;
 import practice.springpractice.domain.Member;
 
 import java.util.*;
