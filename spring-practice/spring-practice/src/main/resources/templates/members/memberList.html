@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div class="container">
+    <div>
+        <table>
+            <thread>
+                <tr>
+                    <th>#</th>
+                    <th>이름</th>
+                </tr>
+            </thread>
+            <tbody>
+            <tr th:each="member : ${members}"> // th:each -> 루프를 돎
+                <td th:text="${member.id}"></td>
+                <td th:text="${member.name}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>
