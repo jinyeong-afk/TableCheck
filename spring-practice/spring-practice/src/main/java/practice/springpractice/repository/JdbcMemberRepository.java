@@ -18,14 +18,14 @@ public class JdbcMemberRepository implements MemberRepository{
 
     @Override
     public Member save(Member member) {
-        String sql = "insert into member(name) valuse(?)";
-
-        Connection connection = dataSource.getConnection();
-
-        PreparedStatement pstmt = connection.prepareStatement(sql);
-        pstmt.setString(1, member.getname());
-
-        pstmt.executeUpdate();
+//        String sql = "insert into member(name) valuse(?)";
+//
+//        Connection connection = dataSource.getConnection();
+//
+//        PreparedStatement pstmt = connection.prepareStatement(sql);
+//        pstmt.setString(1, member.getname());
+//
+//        pstmt.executeUpdate();
         return null;
     }
 
