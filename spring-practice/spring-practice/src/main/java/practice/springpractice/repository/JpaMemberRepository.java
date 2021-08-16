@@ -39,4 +39,23 @@ public class JpaMemberRepository implements MemberRepository{
         return em.createQuery("select m from Member m", Member.class)
                 .getResultList();
     }
+
+    @Override
+    public Optional<Member> findMember(String name, String pass) {
+        List<Member> result = em.createQuery("select m from Member m where m.name = :name and m.pass = :pass", Member.class)
+                .setParameter("name", name)
+                .setParameter("pass", pass)
+                .getResultList();
+
+        return result.stream().findAny();
+    }
+
+//    @Override
+//    public Optional<Member> findPass(String name, String pass) {
+//        List<Member> result = em.createQuery("select m from Member m where m.name = :name and m.pass = :pass", Member.class)
+//                .setParameter("name", name)
+//                .getResultList();
+//        return result.stream().findAny();
+//    }
+
 }

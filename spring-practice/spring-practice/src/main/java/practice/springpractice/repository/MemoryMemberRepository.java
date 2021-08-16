@@ -29,10 +29,27 @@ public class MemoryMemberRepository implements MemberRepository{
                 .findAny();
     }
 
+
+
     @Override
     public List<Member> findAll() {
         return new ArrayList<>(store.values());
     }
+
+    @Override
+    public Optional<Member> findMember(String name, String pass) {
+        return store.values().stream()
+                .filter(member -> member.getPass().equals(pass))
+                .findAny();
+    }
+
+//    @Override
+//    public Optional<Member> findPass(String name, String pass) {
+//        return store.values().stream()
+//                .filter(member -> member.getName().equals(name))
+//                .findAny();
+//    }
+
 
     public void clearStore() {
         store.clear();
