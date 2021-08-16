@@ -50,8 +50,8 @@ public class MemberService {
         return memberRepository.findByName(memberName);
     }
 
-    public Optional<Member> findMember(String memberName, String memberPass) {
-        return memberRepository.findMember(memberName, memberPass);
+    public Optional<Member> findMember(String memberName, String memberPass, int memberValue) {
+        return memberRepository.findMember(memberName, memberPass, memberValue);
     }
 
 }

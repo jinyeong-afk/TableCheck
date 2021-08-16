@@ -10,6 +10,15 @@ public class Member {
     private String pass;
     //@Column(name="username") 디비 컬럼명이 username일 경우
     private String name;
+    private int value;
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
 
     public String getPass() {
         return pass;

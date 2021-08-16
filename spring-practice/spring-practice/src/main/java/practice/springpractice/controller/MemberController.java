@@ -30,6 +30,8 @@ public class MemberController {
         Member member = new Member();
         member.setName(form.getName());
         member.setPass(form.getPass());
+        member.setValue(form.getValue());
+
 
         memberService.join(member);
 
