@@ -3,19 +3,24 @@ package practice.springpractice.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import practice.springpractice.domain.Store;
 import practice.springpractice.service.MemberService;
+import practice.springpractice.service.StoreService;
+
+import java.util.List;
 
 @Controller
 public class GuestController {
 
     private final MemberService memberService;
+    private final StoreService storeService;
     private final int guestValue = 2;
 
     @Autowired
-    public GuestController(MemberService memberService) {
+    public GuestController(MemberService memberService, StoreService storeService) {
         this.memberService = memberService;
+        this.storeService = storeService;
     }
 
     @PostMapping("Guest/login")
@@ -27,7 +32,9 @@ public class GuestController {
             if(memberService.findMember(memberForm.getName(), memberForm.getPass(), guestValue).isPresent())
             {
                 System.out.println("비번 같음");
+                List<Store> stores = storeService.findAllStore();
                 model.addAttribute("msg", "손님으로 로그인 합니다.");
+                model.addAttribute("stores", stores);
                 return "Guest/main";
             }
 
