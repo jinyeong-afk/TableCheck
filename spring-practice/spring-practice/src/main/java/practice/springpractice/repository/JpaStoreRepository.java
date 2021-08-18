@@ -1,11 +1,9 @@
 package practice.springpractice.repository;
 
-import practice.springpractice.domain.Member;
 import practice.springpractice.domain.Store;
 
 import javax.persistence.EntityManager;
 import java.util.List;
-import java.util.Optional;
 
 public class JpaStoreRepository implements StoreRepository{
 
@@ -17,11 +15,16 @@ public class JpaStoreRepository implements StoreRepository{
 
 
     @Override
-    public String findByStoreName(String name) {
-        Store result = em.createQuery("select s from Store s where s.name = :name", Store.class)
+    public List<Store> findByStoreName(String name, String area) {
+        name = "%" + name + "%";
+        System.out.println("name = " + name);
+        List<Store> result = em.createQuery("select s from Store s where s.area = :area and s.name like :name", Store.class)
+                .setParameter("area", area)
                 .setParameter("name", name)
-                .getSingleResult();
-        return result.toString();
+                .getResultList();
+        System.out.println(result);
+        return result;
+
     }
 
     @Override

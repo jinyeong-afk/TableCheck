@@ -1,11 +1,12 @@
 package practice.springpractice.service;
 
+import org.springframework.transaction.annotation.Transactional;
 import practice.springpractice.domain.Store;
 import practice.springpractice.repository.StoreRepository;
 
 import java.util.List;
 
-
+@Transactional
 public class StoreService {
 
     private final StoreRepository storeRepository;
@@ -14,8 +15,8 @@ public class StoreService {
         this.storeRepository = storeRepository;
     }
 
-    public String findByStoreName(String name) {
-        return storeRepository.findByStoreName(name);
+    public List<Store> findByStoreName(String name, String area) {
+        return storeRepository.findByStoreName(name, area);
     }
 
     public List<Store> findAllStore() {
