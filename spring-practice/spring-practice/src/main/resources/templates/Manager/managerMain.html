@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>매장 관리자</title>
+</head>
+<body>
+<p>
+    <a href="/store/register">매장 등록</a>
+    <a href="/store/manage">매장 관리</a>
+    <tbody>
+    <tr th:each="name : ${memberName}">
+        <td th:text="${name.name}"></td>
+    </tr>
+    </tbody>
+</p>
+</body>
+</html>

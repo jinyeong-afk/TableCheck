@@ -19,6 +19,10 @@ public class StoreService {
         return storeRepository.findByStoreName(name, area);
     }
 
+    public List<Store> findByStoreValue(String name) {
+        return storeRepository.findByStoreValue(name);
+    }
+
     public List<Store> findAllStore() {
         return storeRepository.findAllStore();
     }

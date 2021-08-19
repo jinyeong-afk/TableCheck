@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>Title</title>
+    <title>매장 관리</title>
 </head>
 <body>
 <div class="container">
@@ -15,8 +15,10 @@
                 </tr>
             </thread>
             <tbody>
-            <tr th:each="store : ${stores}">
-                <td th:text="${store.name}"></td>
+            <tr th:each="value : ${store}">
+                <td th:text="${value.name}"></td>
+                <td th:text="${value.manager}"></td>
+                <td th:text="${value.area}"></td>
             </tr>
             </tbody>
         </table>
