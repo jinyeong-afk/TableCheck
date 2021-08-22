@@ -4,6 +4,15 @@ public class StoreForm {
     private String storeName;
     private String manager;
     private String area;
+    private String id;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getStoreName() {
         return storeName;

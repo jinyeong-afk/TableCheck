@@ -28,7 +28,7 @@ public class JpaStoreRepository implements StoreRepository{
     @Override
     public List<Store> findByStoreValue(String name) {
         List<Store> result = em.createQuery("select s from Store s left join Member m on s.id = m.name where m.name = :name", Store.class)
-//                .setParameter("name", name)
+                .setParameter("name", name)
                 .getResultList();
         return result;
     }

@@ -5,14 +5,22 @@
     <title>매장 관리자</title>
 </head>
 <body>
-<p>
-    <a href="/store/register">매장 등록</a>
-    <a href="/store/manage">매장 관리</a>
-    <tbody>
-    <tr th:each="name : ${memberName}">
-        <td th:text="${name.name}"></td>
-    </tr>
-    </tbody>
-</p>
+<div class="registerForm">
+    <form action="/store/register" method="post">
+        <div class="store-register">
+            <input type="hidden" id="id2" name="id" th:value="${memberName}" />
+            <button type="submit">매장 등록</button>
+        </div>
+    </form>
+</div>
+<div class="manageForm">
+    <form action="/store/manage" method="post">
+        <div class="store-manage">
+            <input type="hidden" id="id" name="id" th:value="${memberName}" />
+            <button type="submit">매장 관리</button>
+        </div>
+    </form>
+</div>
+
 </body>
 </html>

@@ -21,6 +21,22 @@
                 <td th:text="${value.area}"></td>
             </tr>
             </tbody>
+            <tbody>
+            <tr th:each="value : ${store}">
+                <script type="text/javascript">
+                    var i, j;
+                    for(i = 0; i<4; i++)
+                    {
+                        for(j=0; j<4; j++)
+                        {
+                            document.write("<input type='button' value='Click'>");
+                        }
+                        document.write("</br>")
+                    }
+
+                </script>
+            </tr>
+            </tbody>
         </table>
     </div>
 </div>
