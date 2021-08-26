@@ -25,12 +25,16 @@ public class GuestController {
 
     @PostMapping("Guest/search")
     public String search(StoreForm storeForm, Model model) {
-        if(storeService.findByStoreName(storeForm.getStoreName(), storeForm.getArea()) != null) {
-            List<Store> stores = storeService.findByStoreName(storeForm.getStoreName(), storeForm.getArea());
-            model.addAttribute("stores", stores);
+        if(storeService.findByStoreName(storeForm.getStore_name(), storeForm.getArea()) != null) {
+            List<Store> store = storeService.findByStoreName(storeForm.getStore_name(), storeForm.getArea());
+            model.addAttribute("store", store);
             return "Guest/search";
         }
-        else return "Guest/main";
+
+        else
+        {
+            return "Guest/main";
+        }
     }
 
 }

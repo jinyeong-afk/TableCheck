@@ -15,8 +15,8 @@
                 </tr>
             </thread>
             <tbody>
-            <tr th:each="store : ${stores}">
-                <td th:text="${store.name}"></td>
+            <tr th:each="value : ${store}">
+                <td th:text="${value?.store_name}"></td>
             </tr>
             </tbody>
         </table>

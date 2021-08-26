@@ -47,7 +47,6 @@ public class JpaMemberRepository implements MemberRepository{
                 .setParameter("pass", pass)
                 .setParameter("value", value)
                 .getResultList();
-
         return result.stream().findAny();
     }
 

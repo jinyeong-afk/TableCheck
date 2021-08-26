@@ -1,7 +1,7 @@
 package practice.springpractice.controller;
 
 public class StoreForm {
-    private String storeName;
+    private String store_name;
     private String manager;
     private String area;
     private String id;
@@ -14,12 +14,12 @@ public class StoreForm {
         this.id = id;
     }
 
-    public String getStoreName() {
-        return storeName;
+    public String getStore_name() {
+        return store_name;
     }
 
-    public void setStoreName(String storeName) {
-        this.storeName = storeName;
+    public void setStore_name(String store_name) {
+        this.store_name = store_name;
     }
 
     public String getManager() {

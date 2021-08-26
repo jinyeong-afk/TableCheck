@@ -9,8 +9,8 @@ import javax.persistence.Id;
 public class Store {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private String store_name;
     private String id;
-    private String name;
     private String manager;
     private String area;
 
@@ -22,12 +22,12 @@ public class Store {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getStore_name() {
+        return store_name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setStore_name(String name) {
+        this.store_name = name;
     }
 
     public String getManager() {

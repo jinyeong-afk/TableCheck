@@ -18,7 +18,7 @@ public class JpaStoreRepository implements StoreRepository{
     @Override
     public List<Store> findByStoreName(String name, String area) {
         name = "%" + name + "%";
-        List<Store> result = em.createQuery("select s from Store s where s.area = :area and s.name like :name", Store.class)
+        List<Store> result = em.createQuery("select s from Store s where s.area = :area and s.store_name like :name", Store.class)
                 .setParameter("area", area)
                 .setParameter("name", name)
                 .getResultList();
