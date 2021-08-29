@@ -13,6 +13,15 @@ public class Store {
     private String id;
     private String manager;
     private String area;
+    private String table_status;
+
+    public String getTable_status() {
+        return table_status;
+    }
+
+    public void setTable_status(String table_status) {
+        this.table_status = table_status;
+    }
 
     public String getId() {
         return id;

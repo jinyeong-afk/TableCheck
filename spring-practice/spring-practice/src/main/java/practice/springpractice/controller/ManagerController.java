@@ -28,8 +28,9 @@ public class ManagerController {
 //    }
 
     @PostMapping("store/manage")
-    public String postStoreManage(MemberForm memberForm, StoreForm storeForm, Model model) {
-        System.out.println("id = " + storeForm.getId());
+    public String postStoreManage(StoreForm storeForm, Model model) {
+        Store store_table = new Store();
+        store_table.setTable_status(storeForm.getTable_status());
         List<Store> store = storeService.findByStoreValue(storeForm.getId());
         model.addAttribute("store", store);
         return "Manager/storeManage";

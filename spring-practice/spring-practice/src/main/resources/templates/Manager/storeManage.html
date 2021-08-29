@@ -25,13 +25,14 @@
                 <script type="text/javascript">
                     document.write("<form action='/store/manage' method='post'>")
                     document.write("<tr th:each=\"status : ${store}\">");
-                    var i, j, button_id;
+                    var i, j;
+                    var button_id = 64;
                     for(i = 0; i<4; i++)
                     {
                         for(j=0; j<4; j++)
                         {
-                            button_id = i*10 + j;
-                            document.write("<input type='submit' id='button' value=" + button_id + ">");
+                            button_id++;
+                            document.write("<input type='submit' id="+ String.fromCharCode(button_id) + " name ='table_status' value=" + String.fromCharCode(button_id) + ">");
                         }
                         document.write("</br>")
                     }

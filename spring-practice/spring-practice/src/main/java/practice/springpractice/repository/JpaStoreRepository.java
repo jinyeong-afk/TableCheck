@@ -14,6 +14,10 @@ public class JpaStoreRepository implements StoreRepository{
         this.em = em;
     }
 
+    public Store tableSave(Store store) {
+        em.persist(store);
+        return store;
+    }
 
     @Override
     public List<Store> findByStoreName(String name, String area) {
