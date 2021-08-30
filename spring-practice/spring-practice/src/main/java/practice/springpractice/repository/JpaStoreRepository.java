@@ -14,9 +14,6 @@ public class JpaStoreRepository implements StoreRepository{
     }
 
     public int tableSave(Store store) {
-        store.setStore_name("고기");
-        store.setManager("최고기");
-        store.setArea("울산");
         return em.createQuery("update Store s set s.table_status = :table_status where s.id = :id")
                 .setParameter("table_status", store.getTable_status())
                 .setParameter("id", store.getId())
@@ -36,11 +33,11 @@ public class JpaStoreRepository implements StoreRepository{
     }
 
     @Override
-    public List<Store> findByStoreValue(String name) {
-        List<Store> result = em.createQuery("select s from Store s left join Member m on s.id = m.name where m.name = :name", Store.class)
+    public Store findByStoreValue(String name) {
+        Store store = em.createQuery("select s from Store s left join Member m on s.id = m.name where m.name = :name", Store.class)
                 .setParameter("name", name)
-                .getResultList();
-        return result;
+                .getSingleResult();
+        return store;
     }
 
     @Override

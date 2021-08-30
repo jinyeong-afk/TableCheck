@@ -31,13 +31,12 @@ public class ManagerController {
     public String postStoreManage(StoreForm storeForm, Model model) {
         Store store_table = new Store();
         store_table.setTable_status(storeForm.getTable_status());
-        store_table.setId("bhc");
+        store_table.setId(storeForm.getId());
         if(storeForm.getTable_status() != null)
         {
             storeService.tableSave(store_table);
         }
-        System.out.println("테이블: " + storeForm.getTable_status());
-        List<Store> store = storeService.findByStoreValue(storeForm.getId());
+        Store store = storeService.findByStoreValue(storeForm.getId());
         model.addAttribute("store", store);
         return "Manager/storeManage";
     }

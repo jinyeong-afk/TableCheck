@@ -15,18 +15,17 @@
                 </tr>
             </thread>
             <tbody>
-            <tr th:each="value : ${store}">
-                <td th:text="${value.store_name}"></td>
-                <td th:text="${value.manager}"></td>
-                <td th:text="${value.area}"></td>
-            </tr>
+                <td th:text="${store.store_name}"></td>
+                <td th:text="${store.manager}"></td>
+                <td th:text="${store.area}"></td>
             </tbody>
             <tbody>
-                <script type="text/javascript">
+                <script th:inline="javascript">
                     document.write("<form action='/store/manage' method='post'>")
-                    document.write("<tr th:each=\"status : ${store}\">");
                     var i, j;
+                    var store_id = [[${store.id}]];
                     var button_id = 64;
+                    document.write("<input type=\"hidden\" id=\"id\" name=\"id\" value=" + store_id + " />")
                     for(i = 0; i<4; i++)
                     {
                         for(j=0; j<4; j++)
@@ -38,11 +37,6 @@
                     }
                     document.write("</tr>");
                     document.write("</form>");
-                    function button_click(button_id) {
-                        var x , y;
-                        x = button_id / 10;
-                        y = button_id % 10;
-                    }
                 </script>
 
             </tbody>

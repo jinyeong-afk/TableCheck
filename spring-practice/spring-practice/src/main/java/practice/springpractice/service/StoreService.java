@@ -23,7 +23,7 @@ public class StoreService {
         return storeRepository.findByStoreName(name, area);
     }
 
-    public List<Store> findByStoreValue(String name) {
+    public Store findByStoreValue(String name) {
         return storeRepository.findByStoreValue(name);
     }
 
