@@ -1,6 +1,5 @@
 package practice.springpractice.repository;
 
-import practice.springpractice.domain.Member;
 import practice.springpractice.domain.Store;
 
 import javax.persistence.EntityManager;
@@ -14,10 +13,17 @@ public class JpaStoreRepository implements StoreRepository{
         this.em = em;
     }
 
-    public Store tableSave(Store store) {
-        em.persist(store);
-        return store;
+    public int tableSave(Store store) {
+        store.setStore_name("고기");
+        store.setManager("최고기");
+        store.setArea("울산");
+        return em.createQuery("update Store s set s.table_status = :table_status where s.id = :id")
+                .setParameter("table_status", store.getTable_status())
+                .setParameter("id", store.getId())
+                .executeUpdate();
+
     }
+
 
     @Override
     public List<Store> findByStoreName(String name, String area) {
