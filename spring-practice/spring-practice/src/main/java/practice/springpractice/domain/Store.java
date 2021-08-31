@@ -14,6 +14,24 @@ public class Store {
     private String manager;
     private String area;
     private String table_status;
+    private String table_x;
+    private String table_y;
+
+    public String getTable_x() {
+        return table_x;
+    }
+
+    public void setTable_x(String table_x) {
+        this.table_x = table_x;
+    }
+
+    public String getTable_y() {
+        return table_y;
+    }
+
+    public void setTable_y(String table_y) {
+        this.table_y = table_y;
+    }
 
     public String getTable_status() {
         return table_status;

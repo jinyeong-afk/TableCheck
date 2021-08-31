@@ -24,11 +24,13 @@
                     document.write("<form action='/store/manage' method='post'>")
                     var i, j;
                     var store_id = [[${store.id}]];
+                    var table_x = [[${store.table_x}]];
+                    var table_y = [[${store.table_y}]];
                     var button_id = 64;
                     document.write("<input type=\"hidden\" id=\"id\" name=\"id\" value=" + store_id + " />")
-                    for(i = 0; i<4; i++)
+                    for(i = 0; i<table_y; i++)
                     {
-                        for(j=0; j<4; j++)
+                        for(j=0; j<table_x; j++)
                         {
                             button_id++;
                             document.write("<input type='submit' id="+ String.fromCharCode(button_id) + " name ='table_status' value=" + String.fromCharCode(button_id) + ">");
