@@ -29,6 +29,7 @@
                     var table_status = [[${store.table_status}]]
                     var button_id = 64;
                     var table_id;
+                    var color;
                     document.write("<input type=\"hidden\" id=\"id\" name=\"id\" value=" + store_id + " />")
                     for(i = 0; i<table_y; i++)
                     {
@@ -38,9 +39,14 @@
                             if(table_status.indexOf(String.fromCharCode(button_id)) !=-1)
                             {
                                 table_id = "자리 있음";
+                                color = "color:green"
                             }
-                            else table_id = "자리 없음";
-                            document.write("<button type='submit' name = 'table_status' value=" + table_status + String.fromCharCode(button_id) + ">" + table_id + "</button>");
+                            else {
+                                table_id = "자리 없음";
+                                color = "color:red"
+                            }
+                            document.write("<button type='submit' name = 'table_status' value=" + table_status + String.fromCharCode(button_id) + ">"
+                                + "<span style=" + color + ">"+ table_id + "</span>" +"</button>");
                         }
                         document.write("</br>")
                     }
