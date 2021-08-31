@@ -26,14 +26,21 @@
                     var store_id = [[${store.id}]];
                     var table_x = [[${store.table_x}]];
                     var table_y = [[${store.table_y}]];
+                    var table_status = [[${store.table_status}]]
                     var button_id = 64;
+                    var table_id;
                     document.write("<input type=\"hidden\" id=\"id\" name=\"id\" value=" + store_id + " />")
                     for(i = 0; i<table_y; i++)
                     {
                         for(j=0; j<table_x; j++)
                         {
                             button_id++;
-                            document.write("<input type='submit' id="+ String.fromCharCode(button_id) + " name ='table_status' value=" + String.fromCharCode(button_id) + ">");
+                            if(table_status.indexOf(String.fromCharCode(button_id)) !=-1)
+                            {
+                                table_id = "자리 있음";
+                            }
+                            else table_id = "자리 없음";
+                            document.write("<button type='submit' name = 'table_status' value=" + table_status + String.fromCharCode(button_id) + ">" + table_id + "</button>");
                         }
                         document.write("</br>")
                     }
