@@ -5,6 +5,7 @@ import practice.springpractice.domain.Store;
 import practice.springpractice.repository.StoreRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Transactional
 public class StoreService {
@@ -15,8 +16,8 @@ public class StoreService {
         this.storeRepository = storeRepository;
     }
 
-    public void tableSave(Store store) {
-        storeRepository.tableSave(store);
+    public void tableSave(Store store, int value) {
+        storeRepository.tableSave(store, value);
     }
 
     public List<Store> findByStoreName(String name, String area) {
@@ -30,4 +31,6 @@ public class StoreService {
     public List<Store> findAllStore() {
         return storeRepository.findAllStore();
     }
+
+    public Optional<Store> BooleanStore(String id) {return storeRepository.BooleanStore(id); }
 }

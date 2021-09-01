@@ -51,6 +51,10 @@ public class MemberService {
         return memberRepository.findByName(memberName);
     }
 
+    public Member findByMemberValue(String id) {
+        return memberRepository.findByMemberValue(id);
+    }
+
     public Optional<Member> findMember(String memberName, String memberPass, int memberValue) {
         return memberRepository.findMember(memberName, memberPass, memberValue);
     }

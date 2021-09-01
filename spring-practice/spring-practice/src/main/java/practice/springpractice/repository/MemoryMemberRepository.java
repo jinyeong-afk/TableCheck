@@ -29,6 +29,10 @@ public class MemoryMemberRepository implements MemberRepository{
                 .findAny();
     }
 
+    @Override
+    public Member findByMemberValue(String id) {
+        return null;
+    }
 
 
     @Override
