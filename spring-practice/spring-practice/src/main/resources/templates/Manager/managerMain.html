@@ -5,10 +5,14 @@
     <title>매장 관리자</title>
 </head>
 <body>
+<script>
+
+</script>
 <div class="registerForm">
     <form action="/store/register" method="post">
         <div class="store-register">
             <input type="hidden" id="id2" name="id" th:value="${memberName}" />
+            <input type="hidden" id="name" name="name" th:value="${memberName}" />
             <button type="submit">매장 등록</button>
         </div>
     </form>

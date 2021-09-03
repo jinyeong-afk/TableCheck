@@ -9,6 +9,9 @@ import practice.springpractice.domain.Store;
 import practice.springpractice.service.MemberService;
 import practice.springpractice.service.StoreService;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -24,16 +27,22 @@ public class ManagerController {
         this.storeService = storeService;
     }
 
+    @PostMapping("store/registerForm")
+    public String postStoreRegisterForm() {
+        return "Manager/managerMain";
+    }
+
+
     @PostMapping("store/register")
-    public String postStoreRegister(StoreForm storeForm, Model model){
+    public String postStoreRegister(StoreForm storeForm, MemberForm memberForm, Model model, HttpServletResponse response) throws IOException {
         if(storeService.BooleanStore(storeForm.getId()).isPresent())
         {
-            Store store = storeService.findByStoreValue(storeForm.getId());
-            return "Manager/storeRegister";
+            ScriptUtils.alertAndBackPage(response,"매장 등록이 이미 되어 있습니다.");
+            return "Manager/managerMain";
         }
         else {
-            model.addAttribute("message", "이미 매장이 등록되어 있습니다.");
-            return "Manager/managerMain";
+            model.addAttribute("memberId", memberForm.getName());
+            return "Manager/storeRegister";
         }
     }
 
