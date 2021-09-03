@@ -28,7 +28,17 @@ public class ManagerController {
     }
 
     @PostMapping("store/registerForm")
-    public String postStoreRegisterForm() {
+    public String postStoreRegisterForm(StoreForm storeForm, Model model) {
+        Store store = new Store();
+        store.setStore_name(storeForm.getStore_name());
+        store.setManager(storeForm.getManager());
+        store.setArea(storeForm.getArea());
+        store.setId(storeForm.getId());
+        store.setTable_status("");
+        store.setTable_x(storeForm.getTable_x());
+        store.setTable_y(storeForm.getTable_y());
+        storeService.save(store);
+        model.addAttribute("memberName", storeForm.getId());
         return "Manager/managerMain";
     }
 

@@ -33,6 +33,12 @@ public class JpaStoreRepository implements StoreRepository{
 
     }
 
+    @Override
+    public Store save(Store store) {
+        em.persist(store);
+        return store;
+    }
+
 
     @Override
     public List<Store> findByStoreName(String name, String area) {

@@ -15,9 +15,14 @@
                 </tr>
             </thread>
             <tbody>
+            <form action="/members/tableCheck" method="post">
             <tr th:each="value : ${store}">
                 <td th:text="${value?.store_name}"></td>
+                <button type="submit" name="store_name" th:value="${value?.store_name}">
+                    좌석 확인
+                </button>
             </tr>
+            </form>
             </tbody>
         </table>
     </div>

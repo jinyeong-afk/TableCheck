@@ -12,4 +12,5 @@ public interface StoreRepository {
     List<Store> findAllStore();
     Store registerStore(Store store);
     Optional<Store> BooleanStore(String id);
+    Store save(Store store);
 }
