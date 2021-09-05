@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p style="display:inline">가게명: </p>
+<p style="display:inline" th:text="${store.store_name}"></p>
+<p style="display:inline">&nbsp; &nbsp; &nbsp; 지역명: </p>
+<p style="display:inline" th:text="${store.area}"></p></br></br>
+<script th:inline="javascript">
+    var i, j;
+    var store_id = [[${store.id}]];
+    var table_x = [[${store.table_x}]];
+    var table_y = [[${store.table_y}]];
+    var table_status = [[${store.table_status}]]
+    var button_id = 64;
+    var table_id;
+    var color;
+
+    document.write("<input type=\"hidden\" id=\"id\" name=\"id\" value=" + store_id + " />");
+    for(i = 0; i<table_y; i++)
+    {
+        for(j=0; j<table_x; j++)
+        {
+            button_id++;
+            if(table_status.indexOf(String.fromCharCode(button_id)) !=-1)
+            {
+                table_id = "자리 있음";
+                color = "color:green"
+            }
+            else {
+                table_id = "자리 없음";
+                color = "color:red"
+            }
+            document.write("<button name = 'table_status' value=" + table_status + String.fromCharCode(button_id) + ">"
+                + "<span style=" + color + ">"+ table_id + "</span>" +"</button>");
+        }
+        document.write("</br>")
+    }
+    document.write("</tr>");
+</script>
+</body>
+</html>

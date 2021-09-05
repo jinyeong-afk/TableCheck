@@ -15,12 +15,15 @@
                 </tr>
             </thread>
             <tbody>
-            <form action="/members/tableCheck" method="post">
+            <form action="/Guest/tableCheck" method="post">
             <tr th:each="value : ${store}">
-                <td th:text="${value?.store_name}"></td>
+                <p style="display:inline" th:text="${value?.store_name}"></p>
                 <button type="submit" name="store_name" th:value="${value?.store_name}">
                     좌석 확인
                 </button>
+<!--                <td th:text="${value?.store_name}"></td>-->
+
+<!--                <a href="/Guest/tableCheck" th:name="store_name" th:type="input" th:text="${value?.store_name}" th:value="${value?.store_name}"></a>-->
             </tr>
             </form>
             </tbody>

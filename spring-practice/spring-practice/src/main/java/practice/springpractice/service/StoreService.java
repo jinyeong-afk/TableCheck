@@ -35,4 +35,6 @@ public class StoreService {
     public Optional<Store> BooleanStore(String id) {return storeRepository.BooleanStore(id); }
 
     public Store save(Store store) {return storeRepository.save(store);}
+
+    public Store tableCheck(String store_name) {return storeRepository.tableCheck(store_name);}
 }

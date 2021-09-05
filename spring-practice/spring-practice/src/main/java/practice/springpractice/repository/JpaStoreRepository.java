@@ -39,6 +39,13 @@ public class JpaStoreRepository implements StoreRepository{
         return store;
     }
 
+    @Override
+    public Store tableCheck(String store_name) {
+        return em.createQuery("select s from Store s where s.store_name = :store_name", Store.class)
+                .setParameter("store_name", store_name)
+                .getSingleResult();
+    }
+
 
     @Override
     public List<Store> findByStoreName(String name, String area) {

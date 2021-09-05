@@ -22,6 +22,12 @@ public class GuestController {
         this.storeService = storeService;
     }
 
+    @PostMapping("Guest/tableCheck")
+    public String tableCheck(StoreForm storeForm, Model model) {
+        Store store = storeService.tableCheck(storeForm.getStore_name());
+        model.addAttribute("store", store);
+        return "Guest/table";
+    }
 
     @PostMapping("Guest/search")
     public String search(StoreForm storeForm, Model model) {
