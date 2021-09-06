@@ -37,4 +37,6 @@ public class StoreService {
     public Store save(Store store) {return storeRepository.save(store);}
 
     public Store tableCheck(String store_name) {return storeRepository.tableCheck(store_name);}
+
+    public int modify(Store store) {return storeRepository.modify(store);}
 }

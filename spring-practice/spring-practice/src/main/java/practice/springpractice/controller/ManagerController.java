@@ -2,20 +2,14 @@ package practice.springpractice.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import practice.springpractice.domain.Member;
 import practice.springpractice.domain.Store;
 import practice.springpractice.service.MemberService;
 import practice.springpractice.service.StoreService;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class ManagerController {
@@ -27,7 +21,21 @@ public class ManagerController {
         this.storeService = storeService;
     }
 
-    @PostMapping("store/registerForm")
+    @PostMapping("store/modify")
+    public String postStoreModify(StoreForm storeForm,  MemberForm memberForm, Model model, HttpServletResponse response) throws IOException {
+        if(storeService.BooleanStore(storeForm.getId()).isPresent())
+        {
+            Store store = storeService.findByStoreValue(storeForm.getId());
+            model.addAttribute("store", store);
+            return "Manager/storeModify";
+        }
+        else {
+            ScriptUtils.alertAndBackPage(response,"매장이 등록되어 있지 않습니다.");
+            return "Manager/managerMain";
+        }
+    }
+
+    @PostMapping("store/saveData")
     public String postStoreRegisterForm(StoreForm storeForm, Model model) {
         Store store = new Store();
         store.setStore_name(storeForm.getStore_name());
@@ -37,7 +45,8 @@ public class ManagerController {
         store.setTable_status("");
         store.setTable_x(storeForm.getTable_x());
         store.setTable_y(storeForm.getTable_y());
-        storeService.save(store);
+        if(storeForm.getThrows_value().equals("save")) storeService.save(store);
+        else if(storeForm.getThrows_value().equals("modify")) storeService.modify(store);
         model.addAttribute("memberName", storeForm.getId());
         return "Manager/managerMain";
     }

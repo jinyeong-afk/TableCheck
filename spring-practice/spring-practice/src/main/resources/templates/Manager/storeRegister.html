@@ -43,13 +43,14 @@
 
 
 </script>
-<form name="storeFm" action="/store/registerForm" method="post" onsubmit="return check()">
+<form name="storeFm" action="/store/saveData" method="post" onsubmit="return check()">
     매장명 &nbsp; &nbsp;<input type="text" id="store_name" name="store_name"/></br>
     관리자명 <input type="text" id="manager" name="manager"/></br>
     지역명 &nbsp; &nbsp;<input type="text" id="area" name="area"/></br>
     테이블수 <input type="text" id="table_x" name="table_x" placeholder="가로"/> x
     <input type="text" id="table_y" name="table_y" placeholder="세로"/></br>
     <input type="hidden" id="id" name="id" th:value="${memberId}"/>
+    <input type="hidden" id="throws_value" name="throws_value" value="save"/>
     <button type="submit">제출</button>
 </form>
 </body>

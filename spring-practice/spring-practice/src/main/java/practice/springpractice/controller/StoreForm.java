@@ -8,6 +8,15 @@ public class StoreForm {
     private String table_status;
     private String table_x;
     private String table_y;
+    private String throws_value;
+
+    public String getThrows_value() {
+        return throws_value;
+    }
+
+    public void setThrows_value(String throws_value) {
+        this.throws_value = throws_value;
+    }
 
     public String getTable_x() {
         return table_x;

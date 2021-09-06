@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>매장 수정</title>
+</head>
+<body>
+<script th:inline="javascript">
+    var id = [[${store.id}]];
+    var store_name = [[${store.store_name}]];
+    var manager = [[${store.manager}]];
+    var area = [[${store.area}]];
+    var table_x = [[${store.table_x}]];
+    var table_y = [[${store.table_y}]];
+    document.write("<form name='modifyFm' action='/store/saveData' method='post' onsubmit='return check()'>")
+    document.write("가게명&nbsp;&nbsp;&nbsp;&nbsp;<input type='text' id='store_name' name='store_name' value=" + store_name +"><br>");
+    document.write("관리자명&nbsp;<input type='text' id='manager' name='manager' value=" + manager +"><br>");
+    document.write("지역명&nbsp;&nbsp;&nbsp;&nbsp;<input type='text' id='area' name='area' value=" + area +"><br>");
+    document.write("테이블수&nbsp;<input type='text' id='table_x' name='table_x' value=" + table_x +"> x ");
+    document.write("<input type='text' id='table_y' name='table_y' value=" + table_y +"><br>");
+    document.write("<input type=\"hidden\" id=\"throws_value\" name=\"throws_value\" value=\"modify\">");
+    document.write("<input type=\"hidden\" id=\"id\" name=\"id\" value=" + id +">");
+    document.write("<button type='submit'>제출</button>");
+    document.write("</form>");
+    function check(){
+        var s = document.modifyFm;
+        if(s.store_name.value == "")
+        {
+            alert("매장명을 입력해주세요.");
+            s.store_name.focus();
+            return false;
+        }
+        if(s.manager.value == "")
+        {
+            alert("관리자명을 입력해주세요.")
+            s.manager.focus();
+            return false;
+        }
+        if(s.area.value == "")
+        {
+            alert("지역명을 입력해주세요.")
+            s.area.focus();
+            return false;
+        }
+        if(s.table_x.value == "")
+        {
+            alert("가로를 입력해주세요.");
+            s.table_x.focus();
+            return false;
+        }
+        if(s.table_y.value == "")
+        {
+            alert("세로를 입력해주세요.");
+            s.table_y.focus();
+            return false;
+        }
+    }
+</script>
+</body>
+</html>

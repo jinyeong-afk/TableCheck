@@ -46,6 +46,20 @@ public class JpaStoreRepository implements StoreRepository{
                 .getSingleResult();
     }
 
+    @Override
+    public int modify(Store store) {
+        System.out.println("값들: " + store.getStore_name() + store.getId() + store.getArea() + store.getManager() + store.getTable_status() + store.getTable_x() + store.getTable_y());
+        return em.createQuery("update Store s set s.store_name =:store_name, s.manager = :manager, s.area = :area, s.table_status = :table_status, s.table_x = :table_x, s.table_y = :table_y where s.id = :id")
+                .setParameter("store_name", store.getStore_name())
+                .setParameter("manager", store.getManager())
+                .setParameter("area", store.getArea())
+                .setParameter("table_status", store.getTable_status())
+                .setParameter("table_x", store.getTable_x())
+                .setParameter("table_y", store.getTable_y())
+                .setParameter("id", store.getId())
+                .executeUpdate();
+    }
+
 
     @Override
     public List<Store> findByStoreName(String name, String area) {

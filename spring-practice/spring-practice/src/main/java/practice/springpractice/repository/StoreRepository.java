@@ -14,4 +14,5 @@ public interface StoreRepository {
     Optional<Store> BooleanStore(String id);
     Store save(Store store);
     Store tableCheck(String store_name);
+    int modify(Store store);
 }
