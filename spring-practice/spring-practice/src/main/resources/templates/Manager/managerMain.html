@@ -17,14 +17,6 @@
         </div>
     </form>
 </div>
-<div class="manageForm">
-    <form action="/store/manage" method="post">
-        <div class="store-manage">
-            <input type="hidden" id="id" name="id" th:value="${memberName}" />
-            <button type="submit">매장 관리</button>
-        </div>
-    </form>
-</div>
 <div class="modifyForm">
     <form action="/store/modify" method="post">
         <div class="store-modify">
@@ -33,6 +25,30 @@
         </div>
     </form>
 </div>
+<div class="cancelForm">
+    <form action="/store/delete" method="post" onsubmit="return del()">
+        <div class="store-modify">
+            <input type="hidden" id="id4" name="id" th:value="${memberName}" />
+            <button type="submit">매장 삭제</button>
+        </div>
+    </form>
+</div>
+<script th:inline="javascript">
+    function del() {
+        if (confirm("정말로 매장을 삭제을 삭제하시겠습니까?")) {
+            alert("매장이 삭제되었습니다.");
+        }
+    }
+</script>
+<div class="manageForm">
+    <form action="/store/manage" method="post">
+        <div class="store-manage">
+            <input type="hidden" id="id" name="id" th:value="${memberName}" />
+            <button type="submit">매장 관리</button>
+        </div>
+    </form>
+</div>
+
 
 </body>
 

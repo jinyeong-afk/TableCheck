@@ -60,6 +60,13 @@ public class JpaStoreRepository implements StoreRepository{
                 .executeUpdate();
     }
 
+    @Override
+    public int deleteStore(String id) {
+        return em.createQuery("delete from Store s where s.id = :id")
+                .setParameter("id", id)
+                .executeUpdate();
+    }
+
 
     @Override
     public List<Store> findByStoreName(String name, String area) {

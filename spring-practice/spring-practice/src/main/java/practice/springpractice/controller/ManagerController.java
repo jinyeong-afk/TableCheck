@@ -21,6 +21,13 @@ public class ManagerController {
         this.storeService = storeService;
     }
 
+    @PostMapping("store/delete")
+    public String postStoreDelete(StoreForm storeForm, Model model){
+        storeService.deleteStore(storeForm.getId());
+        model.addAttribute("memberName", storeForm.getId());
+        return "Manager/managerMain";
+    }
+
     @PostMapping("store/modify")
     public String postStoreModify(StoreForm storeForm,  MemberForm memberForm, Model model, HttpServletResponse response) throws IOException {
         if(storeService.BooleanStore(storeForm.getId()).isPresent())

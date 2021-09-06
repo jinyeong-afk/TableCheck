@@ -39,4 +39,6 @@ public class StoreService {
     public Store tableCheck(String store_name) {return storeRepository.tableCheck(store_name);}
 
     public int modify(Store store) {return storeRepository.modify(store);}
+
+    public int deleteStore(String id) {return storeRepository.deleteStore(id);}
 }
