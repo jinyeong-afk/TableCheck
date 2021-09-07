@@ -18,7 +18,7 @@
     var button_id = 64;
     var table_id;
     var color;
-
+    document.write("<form name='reserveForm' action='/Guest/reserve' method='post' onsubmit='return check()'>")
     document.write("<input type=\"hidden\" id=\"id\" name=\"id\" value=" + store_id + " />");
     for(i = 0; i<table_y; i++)
     {
@@ -34,12 +34,22 @@
                 table_id = "자리 없음";
                 color = "color:red"
             }
-            document.write("<button name = 'table_status' value=" + table_status + String.fromCharCode(button_id) + ">"
+            document.write("<button name = 'table_status' value=" + String.fromCharCode(button_id) + ">"
                 + "<span style=" + color + ">"+ table_id + "</span>" +"</button>");
         }
         document.write("</br>")
     }
     document.write("</tr>");
+    document.write("</form>");
+    function check() {
+        if(confirm("해당 좌석을 예약하시겠습니까?")){
+            return true;
+        }
+        else {
+            return false;
+        }
+
+    }
 </script>
 </body>
 </html>

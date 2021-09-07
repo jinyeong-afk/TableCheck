@@ -16,4 +16,5 @@ public interface StoreRepository {
     Store tableCheck(String store_name);
     int modify(Store store);
     int deleteStore(String id);
+    Optional<Store> tableBoolean(Store store);
 }

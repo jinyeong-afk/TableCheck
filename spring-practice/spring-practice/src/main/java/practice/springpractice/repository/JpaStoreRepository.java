@@ -67,6 +67,16 @@ public class JpaStoreRepository implements StoreRepository{
                 .executeUpdate();
     }
 
+    @Override
+    public Optional<Store> tableBoolean(Store store) {
+        String table_status = "%" + store.getTable_status() + "%";
+        List<Store> result = em.createQuery("select s from Store s where s.id = :id and s.table_status like :table_status", Store.class)
+                .setParameter("id", store.getId())
+                .setParameter("table_status", table_status)
+                .getResultList();
+        return result.stream().findAny();
+    }
+
 
     @Override
     public List<Store> findByStoreName(String name, String area) {

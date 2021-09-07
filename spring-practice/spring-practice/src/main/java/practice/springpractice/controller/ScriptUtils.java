@@ -17,6 +17,12 @@ public class ScriptUtils {
         out.println("<script>alert('" + alertText + "');</script> ");
         out.flush();
     }
+    public static void alertReload(HttpServletResponse response, String alertText) throws IOException {
+        init(response);
+        PrintWriter out = response.getWriter();
+        out.println("<script>alert('" + alertText + "'); history.reload(); </script> ");
+        out.flush();
+    }
 
     public static void alertAndMovePage(HttpServletResponse response, String alertText, String nextPage)
             throws IOException {

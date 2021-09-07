@@ -41,4 +41,6 @@ public class StoreService {
     public int modify(Store store) {return storeRepository.modify(store);}
 
     public int deleteStore(String id) {return storeRepository.deleteStore(id);}
+
+    public Optional<Store> tableBoolean(Store store) {return storeRepository.tableBoolean(store);}
 }

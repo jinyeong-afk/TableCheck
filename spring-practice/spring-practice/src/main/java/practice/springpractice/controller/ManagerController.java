@@ -22,10 +22,17 @@ public class ManagerController {
     }
 
     @PostMapping("store/delete")
-    public String postStoreDelete(StoreForm storeForm, Model model){
-        storeService.deleteStore(storeForm.getId());
-        model.addAttribute("memberName", storeForm.getId());
-        return "Manager/managerMain";
+    public void postStoreDelete(StoreForm storeForm, Model model, HttpServletResponse response) throws IOException{
+        if(storeService.BooleanStore(storeForm.getId()).isPresent())
+        {
+            storeService.deleteStore(storeForm.getId());
+            ScriptUtils.alertAndBackPage(response, "매장이 삭제되었습니다.");
+        }
+        else
+        {
+            ScriptUtils.alertAndBackPage(response, "매장이 등록되어 있지 않습니다.");
+        }
+
     }
 
     @PostMapping("store/modify")
