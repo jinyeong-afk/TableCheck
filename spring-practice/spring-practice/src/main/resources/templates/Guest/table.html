@@ -7,22 +7,33 @@
 <body>
 <p style="display:inline">가게명: </p>
 <p style="display:inline" th:text="${store.store_name}"></p>
-<p style="display:inline">&nbsp; &nbsp; &nbsp; 지역명: </p>
+<p style="display:inline">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 지역명: </p>
 <p style="display:inline" th:text="${store.area}"></p></br></br>
+<p style="display:inline">오픈시간: </p>
+<p style="display:inline" th:text="${store.open_time}"></p>
+<p style="display:inline">&nbsp; &nbsp; &nbsp; 라스트 오더: </p>
+<p style="display:inline" th:text="${store.last_order}"></p>
+<p style="display:inline">&nbsp; &nbsp; &nbsp; 마감시간: </p>
+<p style="display:inline" th:text="${store.close_time}"></p><br><br>
 <form name='reload' action="/Guest/tableCheck" method="post">
     <script th:inline="javascript">
         document.write("<label for=\"time\">시간</label>");
         document.write("<select id=\"time\" name=\"time\" size = \"1\" onchange=\"reload2()\">")
         document.write("<option value=\"\">선택하세요.</option>");
-        var hour = 9;
-        var minute = 0;
+        var open_time = [[${store.open_time}]].split(":");
+        var hour = parseInt(open_time[0]);
+        var minute = parseInt(open_time[1]);
+        var last_order = [[${store.last_order}]].split(":");
         var i;
         var store_id = [[${store.id}]];
         var store_name = [[${store.store_name}]];
         var table_x = [[${store.table_x}]];
         var table_y = [[${store.table_y}]];
         var table_status = [[${store.table_status}]];
-        for(i=0; i<30; i++)
+        var open_sum = (hour * 60) + minute;
+        var last_sum = (parseInt(last_order[0] * 60)) + parseInt(last_order[1]);
+
+        while(open_sum <= last_sum)
         {
             if(minute == 0) {
                 document.write("<option value=" + hour+ ":" + minute +">" + hour + ":" + minute + minute + "</option>");
@@ -33,6 +44,7 @@
                 minute = 0;
                 hour += 1;
             }
+            open_sum = (hour * 60) + minute;
         }
         function reload2(){
             document.reload.submit();
@@ -54,11 +66,11 @@
     var store_id = [[${store.id}]];
     var table_x = [[${store.table_x}]];
     var table_y = [[${store.table_y}]];
-    var table_status = [[${store.table_status}]]
+    var table_status = [[${store.table_status}]];
     var button_id = 64;
     var table_id;
     var color;
-    document.write("<form name='reserveForm' action='/Guest/reserve' method='post' onsubmit='return check()'>")
+    document.write("<br><form name='reserveForm' action='/Guest/reserve' method='post' onsubmit='return check()'>")
     document.write("<input type=\"hidden\" id=\"id\" name=\"id\" value=" + store_id + " />");
     for(i = 0; i<table_y; i++)
     {

@@ -16,6 +16,33 @@ public class Store {
     private String table_status;
     private String table_x;
     private String table_y;
+    private String open_time;
+    private String close_time;
+    private String last_order;
+
+    public String getLast_order() {
+        return last_order;
+    }
+
+    public void setLast_order(String last_order) {
+        this.last_order = last_order;
+    }
+
+    public String getClose_time() {
+        return close_time;
+    }
+
+    public void setClose_time(String close_time) {
+        this.close_time = close_time;
+    }
+
+    public String getOpen_time() {
+        return open_time;
+    }
+
+    public void setOpen_time(String open_time) {
+        this.open_time = open_time;
+    }
 
     public String getTable_x() {
         return table_x;

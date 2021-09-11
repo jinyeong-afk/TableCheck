@@ -40,20 +40,10 @@ public class GuestController {
         }
     }
 
-    @PostMapping("Guest/tableCheck2")
-    public String gettableCheck(StoreForm storeForm, Model model, HttpServletResponse response) throws IOException {
-        Store store = storeService.tableCheck(storeForm.getStore_name());
-        model.addAttribute("store", store);
-        System.out.println("다시 왔단다2");
-        ScriptUtils.alertAndBackPage(response, "뒤로 가자");
-        return "Guest/main";
-    }
-
     @PostMapping("Guest/tableCheck")
     public String tableCheck(StoreForm storeForm, Model model) {
         Store store = storeService.tableCheck(storeForm.getStore_name());
         model.addAttribute("store", store);
-        System.out.println("다시 왔단다");
         return "Guest/table";
     }
 
