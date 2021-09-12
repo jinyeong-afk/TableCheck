@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import practice.springpractice.repository.*;
 import practice.springpractice.service.MemberService;
+import practice.springpractice.service.SeatService;
 import practice.springpractice.service.StoreService;
 
 import javax.persistence.EntityManager;
@@ -39,6 +40,9 @@ public class SpringConfig {
     public StoreService storeService() {return new StoreService(storeRepository());}
 
     @Bean
+    public SeatService seatService() {return new SeatService(seatRepository());}
+
+    @Bean
     public MemberRepository memberRepository() {
 //        return new JdbcMemberRepository(dataSource);
 //        return new JdbcTemplateMemberRepository(dataSource);
@@ -49,4 +53,7 @@ public class SpringConfig {
     public StoreRepository storeRepository() {
         return new JpaStoreRepository(em);
     }
+
+    @Bean
+    public SeatRepository seatRepository() {return new JpaSeatRepository(em);}
 }

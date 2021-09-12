@@ -3,22 +3,29 @@ package practice.springpractice.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
+import practice.springpractice.domain.Seat;
 import practice.springpractice.domain.Store;
 import practice.springpractice.service.MemberService;
+import practice.springpractice.service.SeatService;
 import practice.springpractice.service.StoreService;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Arrays;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 @Controller
 public class ManagerController {
     private final MemberService memberService;
     private final StoreService storeService;
+    private final SeatService seatService;
 
-    public ManagerController(MemberService memberService, StoreService storeService) {
+    public ManagerController(MemberService memberService, StoreService storeService, SeatService seatService) {
         this.memberService = memberService;
         this.storeService = storeService;
+        this.seatService = seatService;
     }
 
     @PostMapping("store/delete")
@@ -80,23 +87,42 @@ public class ManagerController {
     }
 
     @PostMapping("store/manage")
-    public String postStoreManage(StoreForm storeForm, Model model) {
-        Store store_table = new Store();
-        char checking = overCheck(storeForm.getTable_status());
-        if(checking !='0') {
-            store_table.setTable_status(storeForm.getTable_status().replace(Character.toString(checking), ""));
-        }
-        else store_table.setTable_status(storeForm.getTable_status());
-        store_table.setId(storeForm.getId());
-        store_table.setTable_x(storeForm.getTable_x());
-        store_table.setTable_y(storeForm.getTable_y());
+    public String postStoreManage(StoreForm storeForm, SeatForm seatForm, Model model) {
+        Date time = new Date();
+        Seat seat = new Seat();
+        seat.setEnter_time(time);
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(time);
+        cal.add(Calendar.HOUR, 1);
+        time = cal.getTime();
+        seat.setStore_name(storeForm.getStore_name());
+        seat.setSeat(storeForm.getTable_status());
         if(storeForm.getTable_status() != null)
         {
-            storeService.tableSave(store_table, 1);
+            if(seatService.checkSeat(seat, time,2).isPresent())
+            {
+                seatService.deleteSeat(seat);
+            }
+            else seatService.saveSeat(seat);
         }
-        if(storeForm.getTable_x() != null && storeForm.getTable_y() != null){
-            storeService.tableSave(store_table, 2);
-        }
+
+
+//        Store store_table = new Store();
+//        char checking = overCheck(storeForm.getTable_status());
+//        if(checking !='0') {
+//            store_table.setTable_status(storeForm.getTable_status().replace(Character.toString(checking), ""));
+//        }
+//        else store_table.setTable_status(storeForm.getTable_status());
+//        store_table.setId(storeForm.getId());
+//        store_table.setTable_x(storeForm.getTable_x());
+//        store_table.setTable_y(storeForm.getTable_y());
+//        if(storeForm.getTable_status() != null)
+//        {
+//            storeService.tableSave(store_table, 1);
+//        }
+//        if(storeForm.getTable_x() != null && storeForm.getTable_y() != null){
+//            storeService.tableSave(store_table, 2);
+//        }
         Store store = storeService.findByStoreValue(storeForm.getId());
         model.addAttribute("store", store);
         return "Manager/storeManage";
@@ -114,7 +140,6 @@ public class ManagerController {
                 }
             }
         }
-
         return '0';
     }
 

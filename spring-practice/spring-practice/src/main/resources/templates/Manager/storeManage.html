@@ -23,6 +23,7 @@
                 <script th:inline="javascript">
                     document.write("<form action='/store/manage' method='post'>")
                     var i, j;
+                    var store_name = [[${store.store_name}]];
                     var store_id = [[${store.id}]];
                     var table_x = [[${store.table_x}]];
                     var table_y = [[${store.table_y}]];
@@ -30,6 +31,7 @@
                     var button_id = 64;
                     var table_id;
                     var color;
+                    document.write("<input type=\"hidden\" id=\"store_name\" name=\"store_name\" value=" + store_name + " />");
                     document.write("<input type=\"hidden\" id=\"id\" name=\"id\" value=" + store_id + " />");
                     for(i = 0; i<table_y; i++)
                     {
@@ -45,7 +47,7 @@
                                 table_id = "자리 없음";
                                 color = "color:red"
                             }
-                            document.write("<button type='submit' name = 'table_status' value=" + table_status + String.fromCharCode(button_id) + ">"
+                            document.write("<button type='submit' name = 'table_status' value=" + String.fromCharCode(button_id) + ">"
                                 + "<span style=" + color + ">"+ table_id + "</span>" +"</button>");
                         }
                         document.write("</br>")
