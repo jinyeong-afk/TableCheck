@@ -48,4 +48,12 @@ public class JpaSeatRepository implements SeatRepository{
                 .setParameter("seat", seat.getSeat())
                 .executeUpdate();
     }
+
+    @Override
+    public List<Seat> findAllSeat(String store_name) {
+        return em.createQuery("select s from Seat s", Seat.class)
+//                .setParameter("store_name", store_name)
+                .getResultList();
+    }
+
 }

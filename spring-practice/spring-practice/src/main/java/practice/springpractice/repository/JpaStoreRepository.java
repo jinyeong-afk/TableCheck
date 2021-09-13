@@ -103,11 +103,6 @@ public class JpaStoreRepository implements StoreRepository{
     }
 
     @Override
-    public Store registerStore(Store store) {
-        return null;
-    }
-
-    @Override
     public Optional<Store> BooleanStore(String id) {
         List<Store> store = em.createQuery("select s from Store s where s.id = :id", Store.class)
                 .setParameter("id", id)

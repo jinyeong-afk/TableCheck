@@ -15,6 +15,7 @@ import java.util.Arrays;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 public class ManagerController {
@@ -88,6 +89,7 @@ public class ManagerController {
 
     @PostMapping("store/manage")
     public String postStoreManage(StoreForm storeForm, SeatForm seatForm, Model model) {
+        Store store = storeService.findByStoreValue(storeForm.getId());
         Date time = new Date();
         Seat seat = new Seat();
         seat.setEnter_time(time);
@@ -95,6 +97,7 @@ public class ManagerController {
         cal.setTime(time);
         cal.add(Calendar.HOUR, 1);
         time = cal.getTime();
+
         seat.setStore_name(storeForm.getStore_name());
         seat.setSeat(storeForm.getTable_status());
         if(storeForm.getTable_status() != null)
@@ -105,25 +108,9 @@ public class ManagerController {
             }
             else seatService.saveSeat(seat);
         }
+        List<Seat> seatList = seatService.findAllSeat(store.getStore_name());
+        model.addAttribute("seatList", seatList);
 
-
-//        Store store_table = new Store();
-//        char checking = overCheck(storeForm.getTable_status());
-//        if(checking !='0') {
-//            store_table.setTable_status(storeForm.getTable_status().replace(Character.toString(checking), ""));
-//        }
-//        else store_table.setTable_status(storeForm.getTable_status());
-//        store_table.setId(storeForm.getId());
-//        store_table.setTable_x(storeForm.getTable_x());
-//        store_table.setTable_y(storeForm.getTable_y());
-//        if(storeForm.getTable_status() != null)
-//        {
-//            storeService.tableSave(store_table, 1);
-//        }
-//        if(storeForm.getTable_x() != null && storeForm.getTable_y() != null){
-//            storeService.tableSave(store_table, 2);
-//        }
-        Store store = storeService.findByStoreValue(storeForm.getId());
         model.addAttribute("store", store);
         return "Manager/storeManage";
     }

@@ -10,11 +10,11 @@ public interface StoreRepository {
     List<Store> findByStoreName(String name, String area);
     Store findByStoreValue(String name);
     List<Store> findAllStore();
-    Store registerStore(Store store);
     Optional<Store> BooleanStore(String id);
     Store save(Store store);
     Store tableCheck(String store_name);
     int modify(Store store);
     int deleteStore(String id);
     Optional<Store> tableBoolean(Store store);
+
 }

@@ -5,6 +5,7 @@ import practice.springpractice.domain.Seat;
 import practice.springpractice.repository.SeatRepository;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Transactional
@@ -20,4 +21,6 @@ public class SeatService{
     public Optional<Seat> checkSeat(Seat seat, Date now_time, int num) {return seatRepository.checkSeat(seat, now_time, num);}
 
     public int deleteSeat(Seat seat) {return seatRepository.deleteSeat(seat);}
+
+    public List<Seat> findAllSeat(String store_name) {return seatRepository.findAllSeat(store_name);}
 }

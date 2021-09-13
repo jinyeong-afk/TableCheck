@@ -18,6 +18,7 @@
                 <td th:text="${store.store_name}"></td>
                 <td th:text="${store.manager}"></td>
                 <td th:text="${store.area}"></td>
+
             </tbody>
             <tbody>
                 <script th:inline="javascript">
@@ -27,10 +28,16 @@
                     var store_id = [[${store.id}]];
                     var table_x = [[${store.table_x}]];
                     var table_y = [[${store.table_y}]];
-                    var table_status = [[${store.table_status}]]
+                    var table_status = [[${store.table_status}]];
                     var button_id = 64;
                     var table_id;
                     var color;
+                    let seatList = [[${seatList}]];
+                    let seat = new Array();
+
+                    seatList.forEach(function(item){
+                        seat.push(item.seat);
+                    });
                     document.write("<input type=\"hidden\" id=\"store_name\" name=\"store_name\" value=" + store_name + " />");
                     document.write("<input type=\"hidden\" id=\"id\" name=\"id\" value=" + store_id + " />");
                     for(i = 0; i<table_y; i++)
@@ -38,7 +45,8 @@
                         for(j=0; j<table_x; j++)
                         {
                             button_id++;
-                            if(table_status.indexOf(String.fromCharCode(button_id)) !=-1)
+                            // if(table_status.indexOf(String.fromCharCode(button_id)) !=-1)
+                            if(seat.indexOf(String.fromCharCode(button_id)) != -1)
                             {
                                 table_id = "자리 있음";
                                 color = "color:green"
@@ -54,6 +62,9 @@
                     }
                     document.write("</tr>");
                     document.write("</form>");
+                    function checkSeat() {
+
+                    }
                 </script>
 
             </tbody>
