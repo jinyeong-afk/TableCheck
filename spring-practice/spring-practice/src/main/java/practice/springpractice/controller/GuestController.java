@@ -3,10 +3,11 @@ package practice.springpractice.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import practice.springpractice.domain.Seat;
 import practice.springpractice.domain.Store;
 import practice.springpractice.service.MemberService;
+import practice.springpractice.service.SeatService;
 import practice.springpractice.service.StoreService;
 
 import javax.servlet.http.HttpServletResponse;
@@ -18,11 +19,13 @@ public class GuestController {
 
     private final MemberService memberService;
     private final StoreService storeService;
+    private final SeatService seatService;
 
     @Autowired
-    public GuestController(MemberService memberService, StoreService storeService) {
+    public GuestController(MemberService memberService, StoreService storeService, SeatService seatService) {
         this.memberService = memberService;
         this.storeService = storeService;
+        this.seatService = seatService;
     }
     @PostMapping("Guest/reserve")
     public String tableReserve(StoreForm storeForm, Model model, HttpServletResponse response) throws IOException {
@@ -43,6 +46,8 @@ public class GuestController {
     @PostMapping("Guest/tableCheck")
     public String tableCheck(StoreForm storeForm, Model model) {
         Store store = storeService.tableCheck(storeForm.getStore_name());
+        List<Seat> seatList = seatService.findAllSeat(storeForm.getStore_name());
+        model.addAttribute("seatList", seatList);
         model.addAttribute("store", store);
         return "Guest/table";
     }

@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import practice.springpractice.repository.*;
 import practice.springpractice.service.MemberService;
+import practice.springpractice.service.MenuService;
 import practice.springpractice.service.SeatService;
 import practice.springpractice.service.StoreService;
 
@@ -43,6 +44,9 @@ public class SpringConfig {
     public SeatService seatService() {return new SeatService(seatRepository());}
 
     @Bean
+    public MenuService menuService() {return new MenuService(menuRepository());}
+
+    @Bean
     public MemberRepository memberRepository() {
 //        return new JdbcMemberRepository(dataSource);
 //        return new JdbcTemplateMemberRepository(dataSource);
@@ -56,4 +60,7 @@ public class SpringConfig {
 
     @Bean
     public SeatRepository seatRepository() {return new JpaSeatRepository(em);}
+
+    @Bean
+    public MenuRepository menuRepository() {return new JpaMenuRepository(em);}
 }

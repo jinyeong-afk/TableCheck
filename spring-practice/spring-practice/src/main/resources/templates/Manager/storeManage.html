@@ -28,7 +28,6 @@
                     var store_id = [[${store.id}]];
                     var table_x = [[${store.table_x}]];
                     var table_y = [[${store.table_y}]];
-                    var table_status = [[${store.table_status}]];
                     var button_id = 64;
                     var table_id;
                     var color;
@@ -45,7 +44,6 @@
                         for(j=0; j<table_x; j++)
                         {
                             button_id++;
-                            // if(table_status.indexOf(String.fromCharCode(button_id)) !=-1)
                             if(seat.indexOf(String.fromCharCode(button_id)) != -1)
                             {
                                 table_id = "자리 있음";
@@ -62,9 +60,6 @@
                     }
                     document.write("</tr>");
                     document.write("</form>");
-                    function checkSeat() {
-
-                    }
                 </script>
 
             </tbody>
