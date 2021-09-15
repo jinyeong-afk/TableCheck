@@ -1,10 +1,30 @@
 package practice.springpractice.controller;
 
-public class menuForm {
+import java.util.List;
+
+public class MenuForm {
     private long sequence;
     private String store_name;
     private String menu_name;
     private String price;
+    private List<String> menuList;
+    private List<Integer> priceList;
+
+    public List<String> getMenuList() {
+        return menuList;
+    }
+
+    public void setMenuList(List<String> menuList) {
+        this.menuList = menuList;
+    }
+
+    public List<Integer> getPriceList() {
+        return priceList;
+    }
+
+    public void setPriceList(List<Integer> priceList) {
+        this.priceList = priceList;
+    }
 
     public long getSequence() {
         return sequence;

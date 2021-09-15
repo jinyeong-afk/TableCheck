@@ -2,11 +2,12 @@ package practice.springpractice.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class Menu {
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long sequence;
     private String store_name;
     private String menu_name;

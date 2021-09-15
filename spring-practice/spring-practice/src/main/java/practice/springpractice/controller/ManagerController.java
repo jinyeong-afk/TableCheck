@@ -3,16 +3,17 @@ package practice.springpractice.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
+import practice.springpractice.domain.Menu;
 import practice.springpractice.domain.Seat;
 import practice.springpractice.domain.Store;
 import practice.springpractice.service.MemberService;
+import practice.springpractice.service.MenuService;
 import practice.springpractice.service.SeatService;
 import practice.springpractice.service.StoreService;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Arrays;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -22,11 +23,13 @@ public class ManagerController {
     private final MemberService memberService;
     private final StoreService storeService;
     private final SeatService seatService;
+    private final MenuService menuService;
 
-    public ManagerController(MemberService memberService, StoreService storeService, SeatService seatService) {
+    public ManagerController(MemberService memberService, StoreService storeService, SeatService seatService, MenuService menuService) {
         this.memberService = memberService;
         this.storeService = storeService;
         this.seatService = seatService;
+        this.menuService = menuService;
     }
 
     @PostMapping("store/delete")
@@ -58,7 +61,7 @@ public class ManagerController {
     }
 
     @PostMapping("store/saveData")
-    public String postStoreRegisterForm(StoreForm storeForm, Model model) {
+    public String postStoreRegisterForm(StoreForm storeForm, MenuForm menuForm, Model model) {
         Store store = new Store();
         store.setStore_name(storeForm.getStore_name());
         store.setManager(storeForm.getManager());
@@ -67,6 +70,21 @@ public class ManagerController {
         store.setTable_status("");
         store.setTable_x(storeForm.getTable_x());
         store.setTable_y(storeForm.getTable_y());
+        store.setOpen_time(storeForm.getOpen_time());
+        store.setClose_time(storeForm.getClose_time());
+        store.setLast_order(storeForm.getLast_order());
+
+        List<String> menuList = menuForm.getMenuList();
+        List<Integer> priceList = menuForm.getPriceList();
+
+        for(int i=0; i<menuList.size(); i++)
+        {
+            Menu menu = new Menu();
+            menu.setStore_name(storeForm.getStore_name());
+            menu.setMenu_name(menuList.get(i));
+            menu.setPrice(priceList.get(i));
+            menuService.saveMenu(menu);
+        }
         if(storeForm.getThrows_value().equals("save")) storeService.save(store);
         else if(storeForm.getThrows_value().equals("modify")) storeService.modify(store);
         model.addAttribute("memberName", storeForm.getId());
