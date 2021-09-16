@@ -70,6 +70,7 @@ public class ManagerController {
         store.setTable_status("");
         store.setTable_x(storeForm.getTable_x());
         store.setTable_y(storeForm.getTable_y());
+        System.out.println("오픈시간: " + storeForm.getOpen_time());
         store.setOpen_time(storeForm.getOpen_time());
         store.setClose_time(storeForm.getClose_time());
         store.setLast_order(storeForm.getLast_order());

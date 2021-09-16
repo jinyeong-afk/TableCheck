@@ -1,5 +1,7 @@
 package practice.springpractice.controller;
 
+import java.sql.Time;
+
 public class StoreForm {
     private String store_name;
     private String manager;
@@ -12,14 +14,6 @@ public class StoreForm {
     private String open_time;
     private String close_time;
     private String last_order;
-
-    public String getLast_order() {
-        return last_order;
-    }
-
-    public void setLast_order(String last_order) {
-        this.last_order = last_order;
-    }
 
     public String getOpen_time() {
         return open_time;
@@ -35,6 +29,14 @@ public class StoreForm {
 
     public void setClose_time(String close_time) {
         this.close_time = close_time;
+    }
+
+    public String getLast_order() {
+        return last_order;
+    }
+
+    public void setLast_order(String last_order) {
+        this.last_order = last_order;
     }
 
     public String getThrows_value() {

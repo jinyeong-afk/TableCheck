@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.sql.Time;
+import java.util.Date;
 
 @Entity
 public class Store {
@@ -20,12 +22,12 @@ public class Store {
     private String close_time;
     private String last_order;
 
-    public String getLast_order() {
-        return last_order;
+    public String getOpen_time() {
+        return open_time;
     }
 
-    public void setLast_order(String last_order) {
-        this.last_order = last_order;
+    public void setOpen_time(String open_time) {
+        this.open_time = open_time;
     }
 
     public String getClose_time() {
@@ -36,12 +38,12 @@ public class Store {
         this.close_time = close_time;
     }
 
-    public String getOpen_time() {
-        return open_time;
+    public String getLast_order() {
+        return last_order;
     }
 
-    public void setOpen_time(String open_time) {
-        this.open_time = open_time;
+    public void setLast_order(String last_order) {
+        this.last_order = last_order;
     }
 
     public String getTable_x() {
