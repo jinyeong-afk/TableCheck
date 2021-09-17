@@ -15,7 +15,6 @@ public class Store {
     private String id;
     private String manager;
     private String area;
-    private String table_status;
     private String table_x;
     private String table_y;
     private String open_time;
@@ -60,14 +59,6 @@ public class Store {
 
     public void setTable_y(String table_y) {
         this.table_y = table_y;
-    }
-
-    public String getTable_status() {
-        return table_status;
-    }
-
-    public void setTable_status(String table_status) {
-        this.table_status = table_status;
     }
 
     public String getId() {

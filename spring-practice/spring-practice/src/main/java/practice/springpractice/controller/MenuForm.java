@@ -9,6 +9,15 @@ public class MenuForm {
     private String price;
     private List<String> menuList;
     private List<Integer> priceList;
+    private List<Long> sequenceList;
+
+    public List<Long> getSequenceList() {
+        return sequenceList;
+    }
+
+    public void setSequenceList(List<Long> sequenceList) {
+        this.sequenceList = sequenceList;
+    }
 
     public List<String> getMenuList() {
         return menuList;

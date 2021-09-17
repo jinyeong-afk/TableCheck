@@ -12,14 +12,39 @@
     var area = [[${store.area}]];
     var table_x = [[${store.table_x}]];
     var table_y = [[${store.table_y}]];
+    var open_time = [[${store.open_time}]];
+    var close_time = [[${store.close_time}]];
+    var last_order = [[${store.last_order}]];
+    var menu = new Array();
+    var menuList = [[${menu}]];
+    var sequenceList = new Array();
+    var count = 0;
+
+    var arrInput = new Array(0);
+    var arrInput2 = new Array(0);
+    var arrInputValue = new Array(0);
+    var arrInputValue2 = new Array(0);
+
     document.write("<form name='modifyFm' action='/store/saveData' method='post' onsubmit='return check()'>")
     document.write("가게명&nbsp;&nbsp;&nbsp;&nbsp;<input type='text' id='store_name' name='store_name' value=" + store_name +"><br>");
     document.write("관리자명&nbsp;<input type='text' id='manager' name='manager' value=" + manager +"><br>");
     document.write("지역명&nbsp;&nbsp;&nbsp;&nbsp;<input type='text' id='area' name='area' value=" + area +"><br>");
     document.write("테이블수&nbsp;<input type='text' id='table_x' name='table_x' value=" + table_x +"> x ");
     document.write("<input type='text' id='table_y' name='table_y' value=" + table_y +"><br>");
+    document.write("오픈시간 <input type=\"time\" id=\"open_time\" name=\"open_time\" value=" + open_time + ">");
+    document.write(" 마감시간 <input type=\"time\" id=\"close_time\" name=\"close_time\" value="+ close_time +">");
+    document.write("라스트오더 <input type=\"time\" id=\"last_order\" name=\"last_order\" value="+ last_order +"><br>");
     document.write("<input type=\"hidden\" id=\"throws_value\" name=\"throws_value\" value=\"modify\">");
     document.write("<input type=\"hidden\" id=\"id\" name=\"id\" value=" + id +">");
+    menuList.forEach(function(item){
+        sequenceList.push(item.sequence);
+        document.write("메뉴<input type='text' name='menuList[]' value=" + item.menu_name +">");
+        document.write("가격<input type='text' name='priceList[]' value=" + item.price +"><br>");
+        document.write("<input type='button' value='삭제' onclick='deleteInput("+ count +")'>");
+        count += 1;
+    });
+    document.write()
+    document.write("<input type='hidden' id='sequence' name='sequenceList' value=" + sequenceList +">")
     document.write("<button type='submit'>제출</button>");
     document.write("</form>");
     function check(){
@@ -54,6 +79,52 @@
             s.table_y.focus();
             return false;
         }
+    }
+
+    function addInput() {
+        arrInput.push(arrInput.length);
+        arrInput2.push(arrInput2.length);
+        arrInputValue.push("");
+        arrInputValue2.push("");
+        display();
+    }
+
+    function display() {
+        var count = 1;
+        document.getElementById('parah').innerHTML="";
+        for (intI=0;intI<arrInput.length;intI++) {
+            count += 1
+            document.getElementById('parah').innerHTML= document.getElementById('parah').innerHTML +
+                count + createInput(arrInput[intI], arrInputValue[intI]) + createInput2(arrInput2[intI], arrInputValue2[intI]);
+        }
+    }
+
+    function saveValue(intId,strValue) {
+        arrInputValue[intId]=strValue;
+    }
+
+    function saveValue2(intId, strValue) {
+        arrInputValue2[intId]=strValue;
+    }
+
+    function createInput(id,value) {
+        return ". <input type='text' id='menuList "+ id +"' placeholder='메뉴 이름' onChange='javascript:saveValue("+ id +",this.value)' value='"+
+            value +"'>";
+    }
+
+    function createInput2(id, value){
+        return ". <input type='text' id='priceList "+ id +"' placeholder='메뉴 가격' onChange='javascript:saveValue2("+ id +",this.value)' value='" +
+            value +"'><br>";
+    }
+
+    function deleteInput(i) {
+        if (arrInput.length > 0) {
+            arrInput.splice(i, 1);
+            arrInputValue.splice();
+            arrInput2.pop();
+            arrInputValue2.pop();
+        }
+        display();
     }
 </script>
 </body>

@@ -15,21 +15,12 @@ public class JpaStoreRepository implements StoreRepository{
     }
 
     public int tableSave(Store store, int value) {
-        if(value == 1)
-        {
-            return em.createQuery("update Store s set s.table_status = :table_status where s.id = :id")
-                    .setParameter("table_status", store.getTable_status())
-                    .setParameter("id", store.getId())
-                    .executeUpdate();
-        }
-        else
-        {
             return em.createQuery("update Store s set s.table_x = :table_x, s.table_y = :table_y where s.id = :id")
                     .setParameter("table_x", store.getTable_x())
                     .setParameter("table_y", store.getTable_y())
                     .setParameter("id", store.getId())
                     .executeUpdate();
-        }
+
 
     }
 
@@ -48,15 +39,16 @@ public class JpaStoreRepository implements StoreRepository{
 
     @Override
     public int modify(Store store) {
-        System.out.println("값들: " + store.getStore_name() + store.getId() + store.getArea() + store.getManager() + store.getTable_status() + store.getTable_x() + store.getTable_y());
-        return em.createQuery("update Store s set s.store_name =:store_name, s.manager = :manager, s.area = :area, s.table_status = :table_status, s.table_x = :table_x, s.table_y = :table_y where s.id = :id")
+        return em.createQuery("update Store s set s.store_name =:store_name, s.manager = :manager, s.area = :area, s.table_x = :table_x, s.table_y = :table_y, s.open_time=:open_time, s.close_time=:close_time, s.last_order=:last_order where s.id = :id")
                 .setParameter("store_name", store.getStore_name())
                 .setParameter("manager", store.getManager())
                 .setParameter("area", store.getArea())
-                .setParameter("table_status", store.getTable_status())
                 .setParameter("table_x", store.getTable_x())
                 .setParameter("table_y", store.getTable_y())
                 .setParameter("id", store.getId())
+                .setParameter("open_time", store.getOpen_time())
+                .setParameter("close_time", store.getClose_time())
+                .setParameter("last_order", store.getLast_order())
                 .executeUpdate();
     }
 
@@ -68,11 +60,10 @@ public class JpaStoreRepository implements StoreRepository{
     }
 
     @Override
-    public Optional<Store> tableBoolean(Store store) {
-        String table_status = "%" + store.getTable_status() + "%";
+    public Optional<Store> tableBoolean(Store store) { // 지울 거
         List<Store> result = em.createQuery("select s from Store s where s.id = :id and s.table_status like :table_status", Store.class)
                 .setParameter("id", store.getId())
-                .setParameter("table_status", table_status)
+//                .setParameter("table_status", table_status)
                 .getResultList();
         return result.stream().findAny();
     }

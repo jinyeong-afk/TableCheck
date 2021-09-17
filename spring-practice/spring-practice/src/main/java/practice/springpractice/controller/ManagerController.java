@@ -51,7 +51,9 @@ public class ManagerController {
         if(storeService.BooleanStore(storeForm.getId()).isPresent())
         {
             Store store = storeService.findByStoreValue(storeForm.getId());
+            List<Menu> menu = menuService.findMenu(store.getStore_name());
             model.addAttribute("store", store);
+            model.addAttribute("menu", menu);
             return "Manager/storeModify";
         }
         else {
@@ -67,7 +69,6 @@ public class ManagerController {
         store.setManager(storeForm.getManager());
         store.setArea(storeForm.getArea());
         store.setId(storeForm.getId());
-        store.setTable_status("");
         store.setTable_x(storeForm.getTable_x());
         store.setTable_y(storeForm.getTable_y());
         System.out.println("오픈시간: " + storeForm.getOpen_time());
@@ -77,17 +78,33 @@ public class ManagerController {
 
         List<String> menuList = menuForm.getMenuList();
         List<Integer> priceList = menuForm.getPriceList();
+        List<Long> sequenceList = menuForm.getSequenceList();
 
-        for(int i=0; i<menuList.size(); i++)
+        if(storeForm.getThrows_value().equals("save"))
         {
-            Menu menu = new Menu();
-            menu.setStore_name(storeForm.getStore_name());
-            menu.setMenu_name(menuList.get(i));
-            menu.setPrice(priceList.get(i));
-            menuService.saveMenu(menu);
+            storeService.save(store);
+            for(int i=0; i<menuList.size(); i++)
+            {
+                Menu menu = new Menu();
+                menu.setStore_name(storeForm.getStore_name());
+                menu.setMenu_name(menuList.get(i));
+                menu.setPrice(priceList.get(i));
+                menuService.saveMenu(menu);
+            }
         }
-        if(storeForm.getThrows_value().equals("save")) storeService.save(store);
-        else if(storeForm.getThrows_value().equals("modify")) storeService.modify(store);
+        else if(storeForm.getThrows_value().equals("modify"))
+        {
+            storeService.modify(store);
+            for(int i=0; i<menuList.size(); i++)
+            {
+                Menu menu = new Menu();
+                menu.setSequence(sequenceList.get(i));
+                menu.setStore_name(storeForm.getStore_name());
+                menu.setMenu_name(menuList.get(i));
+                menu.setPrice(priceList.get(i));
+                menuService.modifyMenu(menu);
+            }
+        }
         model.addAttribute("memberName", storeForm.getId());
         return "Manager/managerMain";
     }
@@ -118,15 +135,11 @@ public class ManagerController {
         time = cal.getTime();
 
         seat.setStore_name(storeForm.getStore_name());
-        seat.setSeat(storeForm.getTable_status());
-        if(storeForm.getTable_status() != null)
-        {
             if(seatService.checkSeat(seat, time,2).isPresent())
             {
                 seatService.deleteSeat(seat);
             }
             else seatService.saveSeat(seat);
-        }
         List<Seat> seatList = seatService.findAllSeat(store.getStore_name());
         model.addAttribute("seatList", seatList);
 

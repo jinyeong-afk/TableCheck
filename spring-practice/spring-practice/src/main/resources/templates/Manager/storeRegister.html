@@ -42,12 +42,63 @@
         }
     }
 
-    function addButton() {
-        count += 1;
-        document.getElementById("add").innerHTML +=
-        + count + ". <input type='text' name='menuList[]' placeholder='메뉴 이름'>"
-        + "<input type='text' name='priceList[]' placeholder='메뉴 가격'><br>";
+    // function addButton() {
+    //     count += 1;
+    //     document.getElementById("add").innerHTML +=
+    //     + count + ". <input type='text' name='menuList[]' placeholder='메뉴 이름'>"
+    //     + "<input type='text' name='priceList[]' placeholder='메뉴 가격'><br>";
+    //
+    // }
+    var arrInput = new Array(0);
+    var arrInput2 = new Array(0);
+    var arrInputValue = new Array(0);
+    var arrInputValue2 = new Array(0);
 
+
+    function addInput() {
+        arrInput.push(arrInput.length);
+        arrInput2.push(arrInput2.length);
+        arrInputValue.push("");
+        arrInputValue2.push("");
+        display();
+    }
+
+    function display() {
+        var count = 1;
+        document.getElementById('parah').innerHTML="";
+        for (intI=0;intI<arrInput.length;intI++) {
+            count += 1
+            document.getElementById('parah').innerHTML= document.getElementById('parah').innerHTML +
+                count + createInput(arrInput[intI], arrInputValue[intI]) + createInput2(arrInput2[intI], arrInputValue2[intI]);
+        }
+    }
+
+    function saveValue(intId,strValue) {
+        arrInputValue[intId]=strValue;
+    }
+
+    function saveValue2(intId, strValue) {
+        arrInputValue2[intId]=strValue;
+    }
+
+    function createInput(id,value) {
+        return ". <input type='text' id='menuList "+ id +"' placeholder='메뉴 이름' onChange='javascript:saveValue("+ id +",this.value)' value='"+
+            value +"'>";
+    }
+
+    function createInput2(id, value){
+        return ". <input type='text' id='priceList "+ id +"' placeholder='메뉴 가격' onChange='javascript:saveValue2("+ id +",this.value)' value='" +
+        value +"'><br>";
+    }
+
+    function deleteInput() {
+        if (arrInput.length > 0) {
+            arrInput.pop();
+            arrInputValue.pop();
+            arrInput2.pop();
+            arrInputValue2.pop();
+        }
+        display();
     }
 
 </script>
@@ -61,12 +112,13 @@
     오픈시간 <input type="time" id="open_time" name="open_time" > 마감시간 <input type="time" id="close_time" name="close_time"> 라스트오더 <input type="time" id="last_order" name="last_order"><br>
     <input type="hidden" id="id" name="id" th:value="${memberId}">
     <input type="hidden" id="throws_value" name="throws_value" value="save">
-    <div id="add">
-        메뉴&nbsp;&nbsp;&nbsp;
-        가격  <input type="button" value="메뉴 수 추가" onclick="addButton()"><br>
-        1. <input type="text" name="menuList[]" placeholder="메뉴 이름">  <input type="text" name="priceList[]" placeholder="메뉴 가격"><br>
-    </div>
+    메뉴&nbsp;&nbsp;&nbsp;
+    가격  <input type="button" value="메뉴 수 추가" onclick="addInput()">
+    <input type="button" value="메뉴 삭제" onclick="deleteInput()"><br>
+    1. <input type="text" name="menuList[]" placeholder="메뉴 이름">  <input type="text" name="priceList[]" placeholder="메뉴 가격"><br>
+    <div id="parah">
 
+    </div>
     <button type="submit">제출</button>
 </form>
 </body>

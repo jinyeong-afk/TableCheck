@@ -30,9 +30,7 @@ public class GuestController {
     @PostMapping("Guest/reserve")
     public String tableReserve(StoreForm storeForm, Model model, HttpServletResponse response) throws IOException {
         Store store = new Store();
-        store.setTable_status(storeForm.getTable_status());
         store.setId(storeForm.getId());
-        System.out.println(storeForm.getTable_status());
         if(storeService.tableBoolean(store).isPresent()){
             ScriptUtils.alertAndBackPage(response, "이미 예약되어 있는 좌석입니다.");
             return "redirect:/";
