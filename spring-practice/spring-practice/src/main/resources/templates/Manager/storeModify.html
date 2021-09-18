@@ -18,12 +18,15 @@
     var menu = new Array();
     var menuList = [[${menu}]];
     var sequenceList = new Array();
-    var count = 0;
+    var number = 0;
+    var delete_count = -1;
 
     var arrInput = new Array(0);
     var arrInput2 = new Array(0);
     var arrInputValue = new Array(0);
     var arrInputValue2 = new Array(0);
+
+    init();
 
     document.write("<form name='modifyFm' action='/store/saveData' method='post' onsubmit='return check()'>")
     document.write("가게명&nbsp;&nbsp;&nbsp;&nbsp;<input type='text' id='store_name' name='store_name' value=" + store_name +"><br>");
@@ -36,14 +39,9 @@
     document.write("라스트오더 <input type=\"time\" id=\"last_order\" name=\"last_order\" value="+ last_order +"><br>");
     document.write("<input type=\"hidden\" id=\"throws_value\" name=\"throws_value\" value=\"modify\">");
     document.write("<input type=\"hidden\" id=\"id\" name=\"id\" value=" + id +">");
-    menuList.forEach(function(item){
-        sequenceList.push(item.sequence);
-        document.write("메뉴<input type='text' name='menuList[]' value=" + item.menu_name +">");
-        document.write("가격<input type='text' name='priceList[]' value=" + item.price +"><br>");
-        document.write("<input type='button' value='삭제' onclick='deleteInput("+ count +")'>");
-        count += 1;
-    });
-    document.write()
+    document.write("<div id='menu'>");
+    display();
+    document.write("</div>");
     document.write("<input type='hidden' id='sequence' name='sequenceList' value=" + sequenceList +">")
     document.write("<button type='submit'>제출</button>");
     document.write("</form>");
@@ -81,6 +79,17 @@
         }
     }
 
+    function init(){
+        menuList.forEach(function(item){
+            arrInput.push(arrInput.length);
+            arrInputValue[number]=item.menu_name;
+            arrInput2.push(arrInput2.length);
+            arrInputValue2[number]=item.price;
+            sequenceList.push(item.sequence);
+            number += 1;
+        });
+    }
+
     function addInput() {
         arrInput.push(arrInput.length);
         arrInput2.push(arrInput2.length);
@@ -91,10 +100,10 @@
 
     function display() {
         var count = 1;
-        document.getElementById('parah').innerHTML="";
+        document.getElementById('menu').innerHTML="";
         for (intI=0;intI<arrInput.length;intI++) {
             count += 1
-            document.getElementById('parah').innerHTML= document.getElementById('parah').innerHTML +
+            document.getElementById('menu').innerHTML= document.getElementById('menu').innerHTML +
                 count + createInput(arrInput[intI], arrInputValue[intI]) + createInput2(arrInput2[intI], arrInputValue2[intI]);
         }
     }
@@ -108,21 +117,25 @@
     }
 
     function createInput(id,value) {
-        return ". <input type='text' id='menuList "+ id +"' placeholder='메뉴 이름' onChange='javascript:saveValue("+ id +",this.value)' value='"+
+        return ". <input type='text' id='menuList"+ id +"' name='menuList[]' placeholder='메뉴 이름' onChange='javascript:saveValue("+ id +",this.value)' value='"+
             value +"'>";
     }
 
     function createInput2(id, value){
-        return ". <input type='text' id='priceList "+ id +"' placeholder='메뉴 가격' onChange='javascript:saveValue2("+ id +",this.value)' value='" +
-            value +"'><br>";
+        delete_count += 1;
+        return ". <input type='text' id='priceList"+ id +"' name='priceList[]' placeholder='메뉴 가격' onChange='javascript:saveValue2("+ id +",this.value)' value='" +
+            value +"'>" +
+            "<input type='button' value='삭제' onclick='deleteInput("+ delete_count +")'><br>";
+
     }
 
     function deleteInput(i) {
+        alert(delete_count);
         if (arrInput.length > 0) {
             arrInput.splice(i, 1);
-            arrInputValue.splice();
-            arrInput2.pop();
-            arrInputValue2.pop();
+            arrInputValue.splice(i, 1);
+            arrInput2.splice(i,1);
+            arrInputValue2.splice(i,1);
         }
         display();
     }

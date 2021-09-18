@@ -36,8 +36,9 @@
 <script th:inline="javascript">
     function del() {
         if (confirm("정말로 매장을 삭제을 삭제하시겠습니까?")) {
-
+            return true;
         }
+        else return false;
     }
 </script>
 <div class="manageForm">

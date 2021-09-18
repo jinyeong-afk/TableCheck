@@ -82,12 +82,12 @@
     }
 
     function createInput(id,value) {
-        return ". <input type='text' id='menuList "+ id +"' placeholder='메뉴 이름' onChange='javascript:saveValue("+ id +",this.value)' value='"+
+        return ". <input type='text' id='menuList "+ id +"' name='menuList[]' placeholder='메뉴 이름' onChange='javascript:saveValue("+ id +",this.value)' value='"+
             value +"'>";
     }
 
     function createInput2(id, value){
-        return ". <input type='text' id='priceList "+ id +"' placeholder='메뉴 가격' onChange='javascript:saveValue2("+ id +",this.value)' value='" +
+        return ". <input type='text' id='priceList "+ id +"' name='priceList[]' placeholder='메뉴 가격' onChange='javascript:saveValue2("+ id +",this.value)' value='" +
         value +"'><br>";
     }
 

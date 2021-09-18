@@ -135,11 +135,12 @@ public class ManagerController {
         time = cal.getTime();
 
         seat.setStore_name(storeForm.getStore_name());
-            if(seatService.checkSeat(seat, time,2).isPresent())
-            {
-                seatService.deleteSeat(seat);
-            }
-            else seatService.saveSeat(seat);
+        seat.setSeat(seatForm.getSeat());
+        if(seatService.checkSeat(seat, time,2).isPresent())
+        {
+            seatService.deleteSeat(seat);
+        }
+        else seatService.saveSeat(seat);
         List<Seat> seatList = seatService.findAllSeat(store.getStore_name());
         model.addAttribute("seatList", seatList);
 

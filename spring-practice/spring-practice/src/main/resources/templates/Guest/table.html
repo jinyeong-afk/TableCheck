@@ -29,7 +29,6 @@
         var store_name = [[${store.store_name}]];
         var table_x = [[${store.table_x}]];
         var table_y = [[${store.table_y}]];
-        var table_status = [[${store.table_status}]];
         var open_sum = (hour * 60) + minute;
         var last_sum = (parseInt(last_order[0] * 60)) + parseInt(last_order[1]);
 
@@ -55,7 +54,6 @@
         document.write("<input type='hidden' id='store_name' name='store_name' value=" + store_name + ">");
         document.write("<input type='hidden' id='table_x' name='table_x' value=" + table_x + ">");
         document.write("<input type='hidden' id='table_y' name='table_y' value=" + table_y + ">");
-        document.write("<input type='hidden' id='table_tatus' name='table_status' value=" + table_status + ">");
         document.write("</select>");
 
     </script>
@@ -93,7 +91,7 @@
                 table_id = "자리 없음";
                 color = "color:red"
             }
-            document.write("<button type='submit' name = 'table_status' value=" + String.fromCharCode(button_id) + ">"
+            document.write("<button type='submit' name = 'seat' value=" + String.fromCharCode(button_id) + ">"
                 + "<span style=" + color + ">"+ table_id + "</span>" +"</button>");
         }
         document.write("</br>")
