@@ -13,6 +13,15 @@ public class StoreForm {
     private String open_time;
     private String close_time;
     private String last_order;
+    private String selected_time;
+
+    public String getSelected_time() {
+        return selected_time;
+    }
+
+    public void setSelected_time(String selected_time) {
+        this.selected_time = selected_time;
+    }
 
     public String getOpen_time() {
         return open_time;

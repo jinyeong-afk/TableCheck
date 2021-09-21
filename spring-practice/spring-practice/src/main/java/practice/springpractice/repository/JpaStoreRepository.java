@@ -20,8 +20,6 @@ public class JpaStoreRepository implements StoreRepository{
                     .setParameter("table_y", store.getTable_y())
                     .setParameter("id", store.getId())
                     .executeUpdate();
-
-
     }
 
     @Override
@@ -58,16 +56,6 @@ public class JpaStoreRepository implements StoreRepository{
                 .setParameter("id", id)
                 .executeUpdate();
     }
-
-    @Override
-    public Optional<Store> tableBoolean(Store store) { // 지울 거
-        List<Store> result = em.createQuery("select s from Store s where s.id = :id and s.table_status like :table_status", Store.class)
-                .setParameter("id", store.getId())
-//                .setParameter("table_status", table_status)
-                .getResultList();
-        return result.stream().findAny();
-    }
-
 
     @Override
     public List<Store> findByStoreName(String name, String area) {

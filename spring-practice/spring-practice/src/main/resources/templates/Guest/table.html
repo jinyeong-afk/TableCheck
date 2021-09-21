@@ -15,49 +15,7 @@
 <p style="display:inline" th:text="${store.last_order}"></p>
 <p style="display:inline">&nbsp; &nbsp; &nbsp; 마감시간: </p>
 <p style="display:inline" th:text="${store.close_time}"></p><br><br>
-<form name='reload' action="/Guest/tableCheck" method="post">
-    <script th:inline="javascript">
-        document.write("<label for=\"time\">시간</label>");
-        document.write("<select id=\"time\" name=\"time\" size = \"1\" onchange=\"reload2()\">")
-        document.write("<option value=\"\">선택하세요.</option>");
-        var open_time = [[${store.open_time}]].split(":");
-        var hour = parseInt(open_time[0]);
-        var minute = parseInt(open_time[1]);
-        var last_order = [[${store.last_order}]].split(":");
-        var i;
-        var store_id = [[${store.id}]];
-        var store_name = [[${store.store_name}]];
-        var table_x = [[${store.table_x}]];
-        var table_y = [[${store.table_y}]];
-        var open_sum = (hour * 60) + minute;
-        var last_sum = (parseInt(last_order[0] * 60)) + parseInt(last_order[1]);
 
-        while(open_sum <= last_sum)
-        {
-            if(minute == 0) {
-                document.write("<option value=" + hour+ ":" + minute +">" + hour + ":" + minute + minute + "</option>");
-                minute = 30;
-            }
-            else if(minute == 30) {
-                document.write("<option value=" + hour+ ":" + minute +">" + hour + ":" + minute + "</option>");
-                minute = 0;
-                hour += 1;
-            }
-            open_sum = (hour * 60) + minute;
-        }
-        function reload2(){
-            document.reload.submit();
-        }
-        document.write("<input type='hidden' id='hour' name='hour' value=" + hour + ">");
-        document.write("<input type='hidden' id='minute' name='minute' value=" + minute + ">");
-        document.write("<input type='hidden' id='id' name='id' value=" + store_id + ">");
-        document.write("<input type='hidden' id='store_name' name='store_name' value=" + store_name + ">");
-        document.write("<input type='hidden' id='table_x' name='table_x' value=" + table_x + ">");
-        document.write("<input type='hidden' id='table_y' name='table_y' value=" + table_y + ">");
-        document.write("</select>");
-
-    </script>
-</form>
 
 <script th:inline="javascript">
     var i, j;
@@ -70,26 +28,123 @@
     var color;
     let seatList = [[${seatList}]];
     let seat = new Array();
+    let enter_seat = new Array();
+    let enter = new Array();
+    var enter_value;
+    var selected_time = [[${selected_time}]];
+    var open_time = [[${store.open_time}]].split(":");
+    var hour = parseInt(open_time[0]);
+    var minute = parseInt(open_time[1]);
+    var last_order = [[${store.last_order}]].split(":");
+    var open_sum = (hour * 60) + minute;
+    var last_sum = (parseInt(last_order[0] * 60)) + parseInt(last_order[1]);
+    var s
+    var s_time;
 
     seatList.forEach(function(item){
         seat.push(item.seat);
+        enter_seat.push(item.seat);
     });
+    seatList.forEach(function(item){
+       enter.push(item.enter_time);
+    });
+
+    if(selected_time != null)
+    {
+        posibleCheck();
+    }
+
+    alert(enter_seat);
+
+    document.write("<form name='reload' action=\"/Guest/tableCheck\" method=\"post\">");
+    document.write("<label for=\"time\">시간</label>");
+    document.write("<select id=\"time\" class='time' name=\"time\" size = \"1\" onchange=\"reload2()\">");
+    document.write("<option value=\"\">선택하세요.</option>");
+
+    while(open_sum <= last_sum)
+    {
+        if(minute == 0) {
+            document.write("<option value=" + hour+ ":" + minute +">" + hour + ":" + minute + minute + "</option>");
+            minute = 30;
+        }
+        else if(minute == 30) {
+            document.write("<option value=" + hour+ ":" + minute +">" + hour + ":" + minute + "</option>");
+            minute = 0;
+            hour += 1;
+        }
+        open_sum = (hour * 60) + minute;
+    }
+
+    function reload2(){
+        s = document.getElementById("time");
+        s_time = s.options[s.selectedIndex].value;
+        document.getElementById("selected_time").value = s_time;
+        document.reload.submit();
+    }
+
+    function posibleCheck(){
+        for(i=0; i<enter.length; i++)
+        {
+            var now = new Date();
+            var split_time = selected_time.split(":");
+            var selected_hours = split_time[0];
+            var selected_minutes = split_time[1];
+            var timeDate = new Date(2021, 8, 21, selected_hours-1, selected_minutes, now.getSeconds());
+            now.setHours(now.getHours() - 1);
+            enter_value = new Date(enter[i]);
+            alert("timeDate = " + timeDate + ", enter_value = " + enter_value);
+            alert(timeDate.getTime() - enter_value.getTime());
+            if(timeDate.getTime() >= enter_value.getTime())
+            {
+                alert("지워짐");
+                enter.splice(i,1);
+                enter_seat.splice(i,1);
+                i--;
+            }
+        }
+    }
+
+    // document.write("<input type='hidden' id='hour' name='hour' value=" + hour + ">");
+    // document.write("<input type='hidden' id='minute' name='minute' value=" + minute + ">");
+    document.write("<input type='hidden' id='id' name='id' value=" + store_id + ">");
+    document.write("<input type='hidden' id='store_name' name='store_name' value=" + store_name + ">");
+    document.write("<input type='hidden' id='table_x' name='table_x' value=" + table_x + ">");
+    document.write("<input type='hidden' id='table_y' name='table_y' value=" + table_y + ">");
+    document.write("<input type='hidden' id='selected_time' name='selected_time' value="+s_time+">");
+    document.write("</select>");
+    document.write("</form>");
+
     document.write("<br><form name='reserveForm' action='/Guest/reserve' method='post' onsubmit='return check()'>")
     document.write("<input type=\"hidden\" id=\"id\" name=\"id\" value=" + store_id + " />");
     document.write("<input type=\"hidden\" id=\"store_name\" name=\"store_name\" value=" + store_name + " />");
+
     for(i = 0; i<table_y; i++)
     {
         for(j=0; j<table_x; j++)
         {
             button_id++;
-            if(seat.indexOf(String.fromCharCode(button_id)) != -1)
+            if(selected_time == null)
             {
-                table_id = "자리 있음";
-                color = "color:green"
+                if(seat.indexOf(String.fromCharCode(button_id)) != -1)
+                {
+                    table_id = "자리 있음";
+                    color = "color:green"
+                }
+                else {
+                    table_id = "자리 없음";
+                    color = "color:red"
+                }
             }
-            else {
-                table_id = "자리 없음";
-                color = "color:red"
+            else{
+                if(enter_seat.indexOf(String.fromCharCode(button_id)) != -1)
+                {
+                    table_id = "자리 없음";
+                    color = "color:red"
+                }
+                else {
+                    table_id = "자리 있음";
+                    color = "color:green"
+                }
             }
             document.write("<button type='submit' name = 'seat' value=" + String.fromCharCode(button_id) + ">"
                 + "<span style=" + color + ">"+ table_id + "</span>" +"</button>");

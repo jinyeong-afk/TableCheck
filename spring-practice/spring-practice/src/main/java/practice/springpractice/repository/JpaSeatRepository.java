@@ -51,8 +51,8 @@ public class JpaSeatRepository implements SeatRepository{
 
     @Override
     public List<Seat> findAllSeat(String store_name) {
-        return em.createQuery("select s from Seat s", Seat.class)
-//                .setParameter("store_name", store_name)
+        return em.createQuery("select s from Seat s where s.store_name = :store_name", Seat.class)
+                .setParameter("store_name", store_name)
                 .getResultList();
     }
 

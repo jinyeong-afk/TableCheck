@@ -31,22 +31,25 @@ public class GuestController {
     public String tableReserve(StoreForm storeForm, Model model, HttpServletResponse response) throws IOException {
         Store store = new Store();
         store.setId(storeForm.getId());
-        if(storeService.tableBoolean(store).isPresent()){
-            ScriptUtils.alertAndBackPage(response, "이미 예약되어 있는 좌석입니다.");
-            return "redirect:/";
-        }
-        else {
+//        if(storeService.tableBoolean(store).isPresent()){
+//            ScriptUtils.alertAndBackPage(response, "이미 예약되어 있는 좌석입니다.");
+//            return "redirect:/";
+//        }
+//        else {
             model.addAttribute("num", 1);
             return "Guest/reservation";
-        }
+//        }
     }
 
     @PostMapping("Guest/tableCheck")
-    public String tableCheck(StoreForm storeForm, Model model) {
+    public String tableCheck(StoreForm storeForm, ReservationForm reservationForm, Model model) {
+        System.out.println("스토어네임은 " + storeForm.getStore_name());
         Store store = storeService.tableCheck(storeForm.getStore_name());
         List<Seat> seatList = seatService.findAllSeat(storeForm.getStore_name());
         model.addAttribute("seatList", seatList);
         model.addAttribute("store", store);
+        model.addAttribute("selected_time", storeForm.getSelected_time());
+        System.out.println("selected_time = " + storeForm.getSelected_time());
         return "Guest/table";
     }
 
