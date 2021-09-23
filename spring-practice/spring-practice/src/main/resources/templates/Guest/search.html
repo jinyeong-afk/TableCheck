@@ -16,6 +16,7 @@
             </thread>
             <tbody>
             <form action="/Guest/tableCheck" method="post">
+                <input type="hidden" id="name" name="name" th:value="${id}">
             <tr th:each="value : ${store}">
                 <p style="display:inline" th:text="${value?.store_name}"></p>
                 <button type="submit" name="store_name" th:value="${value?.store_name}">
@@ -25,6 +26,7 @@
 
 <!--                <a href="/Guest/tableCheck" th:name="store_name" th:type="input" th:text="${value?.store_name}" th:value="${value?.store_name}"></a>-->
             </tr>
+
             </form>
             </tbody>
         </table>

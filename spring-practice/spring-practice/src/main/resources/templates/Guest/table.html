@@ -24,6 +24,7 @@
     var table_x = [[${store.table_x}]];
     var table_y = [[${store.table_y}]];
     var button_id = 64;
+    var button_set;
     var table_id;
     var color;
     let seatList = [[${seatList}]];
@@ -40,7 +41,9 @@
     var last_sum = (parseInt(last_order[0] * 60)) + parseInt(last_order[1]);
     var s
     var s_time;
+    var member_id = [[${id}]];
 
+    alert(member_id);
     seatList.forEach(function(item){
         seat.push(item.seat);
         enter_seat.push(item.seat);
@@ -60,6 +63,7 @@
     document.write("<label for=\"time\">시간</label>");
     document.write("<select id=\"time\" class='time' name=\"time\" size = \"1\" onchange=\"reload2()\">");
     document.write("<option value=\"\">선택하세요.</option>");
+    document.write("<option value='0:0'>00:00</option>/");
 
     while(open_sum <= last_sum)
     {
@@ -89,14 +93,16 @@
             var split_time = selected_time.split(":");
             var selected_hours = split_time[0];
             var selected_minutes = split_time[1];
-            var timeDate = new Date(2021, 8, 21, selected_hours-1, selected_minutes, now.getSeconds());
-            now.setHours(now.getHours() - 1);
+            var timeDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), selected_hours-1, selected_minutes, now.getSeconds());
+
+            if(selected_hours == '0')
+            {
+                timeDate.setDate = timeDate.getDate - 1;
+                timeDate.setHours = 23;
+            }
             enter_value = new Date(enter[i]);
-            alert("timeDate = " + timeDate + ", enter_value = " + enter_value);
-            alert(timeDate.getTime() - enter_value.getTime());
             if(timeDate.getTime() >= enter_value.getTime())
             {
-                alert("지워짐");
                 enter.splice(i,1);
                 enter_seat.splice(i,1);
                 i--;
@@ -114,9 +120,10 @@
     document.write("</select>");
     document.write("</form>");
 
-    document.write("<br><form name='reserveForm' action='/Guest/reserve' method='post' onsubmit='return check()'>")
+    document.write("<br><form name='reserveForm' action='/Guest/reservationForm' method='post' onsubmit='return check()'>")
     document.write("<input type=\"hidden\" id=\"id\" name=\"id\" value=" + store_id + " />");
     document.write("<input type=\"hidden\" id=\"store_name\" name=\"store_name\" value=" + store_name + " />");
+    document.write("<input type='hidden' id='name' name='name' value="+member_id+">");
 
     for(i = 0; i<table_y; i++)
     {
@@ -128,25 +135,29 @@
                 if(seat.indexOf(String.fromCharCode(button_id)) != -1)
                 {
                     table_id = "자리 있음";
-                    color = "color:green"
+                    color = "color:red"
+                    button_set = "disabled";
                 }
                 else {
                     table_id = "자리 없음";
-                    color = "color:red"
+                    color = "color:green"
+                    button_set = null;
                 }
             }
             else{
                 if(enter_seat.indexOf(String.fromCharCode(button_id)) != -1)
                 {
                     table_id = "자리 없음";
-                    color = "color:red"
+                    color = "color:green"
+                    button_set = null;
                 }
                 else {
                     table_id = "자리 있음";
-                    color = "color:green"
+                    color = "color:red"
+                    button_set = "disabled";
                 }
             }
-            document.write("<button type='submit' name = 'seat' value=" + String.fromCharCode(button_id) + ">"
+            document.write("<button type='submit' name = 'seat' " + button_set + " value=" + String.fromCharCode(button_id) + ">"
                 + "<span style=" + color + ">"+ table_id + "</span>" +"</button>");
         }
         document.write("</br>")

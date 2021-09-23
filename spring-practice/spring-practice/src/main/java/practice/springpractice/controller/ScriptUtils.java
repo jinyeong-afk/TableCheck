@@ -38,5 +38,12 @@ public class ScriptUtils {
         out.println("<script>alert('" + alertText + "'); history.go(-1);</script>");
         out.flush();
     }
+
+    public static void BackPage(HttpServletResponse response) throws IOException {
+        init(response);
+        PrintWriter out = response.getWriter();
+        out.println("<script>history.go(-2);</script>");
+        out.flush();
+    }
 }
 

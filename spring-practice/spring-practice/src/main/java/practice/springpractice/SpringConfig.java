@@ -4,32 +4,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import practice.springpractice.repository.*;
-import practice.springpractice.service.MemberService;
-import practice.springpractice.service.MenuService;
-import practice.springpractice.service.SeatService;
-import practice.springpractice.service.StoreService;
+import practice.springpractice.service.*;
 
 import javax.persistence.EntityManager;
 
 @Configuration
 public class SpringConfig {
 
-//    private DataSource dataSource;
-//
-//    @Autowired
-//    public SpringConfig(DataSource dataSource) {
-//        this.dataSource =
-//    }
+
     private EntityManager em;
-//    private EntityManager em2;
 
-
-
-//
     @Autowired // 생성자가 하나일 경우 생략 가능
     public SpringConfig(EntityManager em) {
         this.em = em;
-//        this.em2 = em2;
+
     }
 
     @Bean
@@ -47,11 +35,15 @@ public class SpringConfig {
     public MenuService menuService() {return new MenuService(menuRepository());}
 
     @Bean
+    public ReservationService reservationService() {return new ReservationService(reservationRepository());}
+
+    @Bean
     public MemberRepository memberRepository() {
-//        return new JdbcMemberRepository(dataSource);
-//        return new JdbcTemplateMemberRepository(dataSource);
         return new JpaMemberRepository(em);
     }
+
+    @Bean
+    public ReservationRepository reservationRepository() {return new JpaReservationRepository(em);}
 
     @Bean
     public StoreRepository storeRepository() {

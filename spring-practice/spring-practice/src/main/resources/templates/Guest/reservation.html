@@ -6,6 +6,27 @@
     <title>예약</title>
 </head>
 <body>
+<form name="reservationForm" action="/Guest/reserve" method="post">0
+예약날짜 &nbsp;&nbsp;<input type="datetime-local" id="reserve_time" name="reserve_time"><br>
+    <input type="hidden" id="name" name="name" th:value="${id}">
+    <input type="hidden" id="store_name" name="store_name" th:value="${store_name}">
+    <input type="hidden" id="seat" name="seat" th:value="${seat}">
+<script th:inline="javascript">
+    let menuList = [[${menu}]];
+    let menu_name = new Array();
+    let menu_price = new Array();
 
+    menuList.forEach(function(item){
+       menu_name.push(item.menu_name);
+       menu_price.push(item.price);
+       document.write(item.menu_name + "(" + item.price + "원)");
+       document.write("<input type='text' placeholder='음식 수량' name='menuNumList[]'>개<br>");
+    });
+    document.write("<input type='hidden' name='menuNameList[]' value="+menu_name+">");
+    document.write("<input type='hidden' name='menuPriceList[]' value="+menu_price+">");
+</script>
+
+    <button type="submit">제출하기</button>
+</form>
 </body>
 </html>
