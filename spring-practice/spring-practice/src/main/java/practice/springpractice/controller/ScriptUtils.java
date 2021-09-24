@@ -35,7 +35,7 @@ public class ScriptUtils {
     public static void alertAndBackPage(HttpServletResponse response, String alertText) throws IOException {
         init(response);
         PrintWriter out = response.getWriter();
-        out.println("<script>alert('" + alertText + "'); history.go(-1);</script>");
+        out.println("<script>alert('" + alertText + "'); history.back(-1);</script>");
         out.flush();
     }
 

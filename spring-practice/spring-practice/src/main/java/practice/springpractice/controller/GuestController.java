@@ -35,7 +35,7 @@ public class GuestController {
     }
 
     @PostMapping("Guest/reserve")
-    public void saveReserve(StoreForm storeForm, MemberForm memberForm, ReservationForm reservationForm, HttpServletResponse response) throws IOException {
+    public String saveReserve(StoreForm storeForm, MemberForm memberForm, ReservationForm reservationForm, HttpServletResponse response, Model model) throws IOException {
         Reservation reservation = new Reservation();
         reservation.setId(memberForm.getName());
         reservation.setReserve_time(reservationForm.getReserve_time());
@@ -47,9 +47,15 @@ public class GuestController {
             reservation.setMenu_num(reservationForm.getMenuNumList().get(i));
             reservationService.saveReserve(reservation);
         }
-        ScriptUtils.alertAndBackPage(response, "예약이 완료되었습니다.");
-        ScriptUtils.BackPage(response);
-        ScriptUtils.BackPage(response);
+        Store store = storeService.tableCheck(storeForm.getStore_name());
+        List<Seat> seatList = seatService.findAllSeat(storeForm.getStore_name());
+        List<Reservation> reservationList = reservationService.findReserve(storeForm.getStore_name());
+        model.addAttribute("reservationList", reservationList);
+        model.addAttribute("seatList", seatList);
+        model.addAttribute("store", store);
+        model.addAttribute("selected_time", null);
+        model.addAttribute("id", memberForm.getName());
+        return "Guest/table";
     }
 
     @PostMapping("Guest/reservationForm")
@@ -57,12 +63,12 @@ public class GuestController {
         Store store = new Store();
         store.setId(storeForm.getId());
         store.setStore_name(storeForm.getStore_name());
-        System.out.println("memeberId2 = " + memberForm.getName());
         List<Menu> menu = menuService.findMenu(storeForm.getStore_name());
         model.addAttribute("seat", seatForm.getSeat());
         model.addAttribute("menu", menu);
         model.addAttribute("id", memberForm.getName());
         model.addAttribute("store_name", storeForm.getStore_name());
+        model.addAttribute("selected_time", storeForm.getSelected_time());
         return "Guest/reservation";
     }
 
@@ -70,10 +76,11 @@ public class GuestController {
     public String tableCheck(StoreForm storeForm, MemberForm memberForm, Model model) {
         Store store = storeService.tableCheck(storeForm.getStore_name());
         List<Seat> seatList = seatService.findAllSeat(storeForm.getStore_name());
+        List<Reservation> reservationList = reservationService.findReserve(storeForm.getStore_name());
+        model.addAttribute("reservationList", reservationList);
         model.addAttribute("seatList", seatList);
         model.addAttribute("store", store);
         model.addAttribute("selected_time", storeForm.getSelected_time());
-        System.out.println("memeberId = " + memberForm.getName());
         model.addAttribute("id", memberForm.getName());
         return "Guest/table";
     }

@@ -6,12 +6,13 @@
     <title>예약</title>
 </head>
 <body>
-<form name="reservationForm" action="/Guest/reserve" method="post">0
-예약날짜 &nbsp;&nbsp;<input type="datetime-local" id="reserve_time" name="reserve_time"><br>
+<form name="reservationForm" action="/Guest/reserve" method="post">
     <input type="hidden" id="name" name="name" th:value="${id}">
     <input type="hidden" id="store_name" name="store_name" th:value="${store_name}">
     <input type="hidden" id="seat" name="seat" th:value="${seat}">
 <script th:inline="javascript">
+    var selected_time = [[${selected_time}]];
+    alert(selected_time);
     let menuList = [[${menu}]];
     let menu_name = new Array();
     let menu_price = new Array();

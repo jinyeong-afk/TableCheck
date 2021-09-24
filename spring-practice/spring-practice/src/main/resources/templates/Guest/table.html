@@ -15,7 +15,9 @@
 <p style="display:inline" th:text="${store.last_order}"></p>
 <p style="display:inline">&nbsp; &nbsp; &nbsp; 마감시간: </p>
 <p style="display:inline" th:text="${store.close_time}"></p><br><br>
+<div id="clock" name="clock">
 
+</div>
 
 <script th:inline="javascript">
     var i, j;
@@ -27,6 +29,9 @@
     var button_set;
     var table_id;
     var color;
+    let reservationList = [[${reservationList}]];
+    let reservation_time = new Array();
+    let reservation_seat = new Array();
     let seatList = [[${seatList}]];
     let seat = new Array();
     let enter_seat = new Array();
@@ -43,7 +48,11 @@
     var s_time;
     var member_id = [[${id}]];
 
-    alert(member_id);
+    reservationList.forEach(function(item){
+        reservation_time.push(item.reserve_time);
+        reservation_seat.push(item.seat);
+    });
+
     seatList.forEach(function(item){
         seat.push(item.seat);
         enter_seat.push(item.seat);
@@ -55,15 +64,15 @@
     if(selected_time != null)
     {
         posibleCheck();
+        checkReserve();
     }
+    initTime();
 
-    alert(enter_seat);
 
     document.write("<form name='reload' action=\"/Guest/tableCheck\" method=\"post\">");
     document.write("<label for=\"time\">시간</label>");
     document.write("<select id=\"time\" class='time' name=\"time\" size = \"1\" onchange=\"reload2()\">");
     document.write("<option value=\"\">선택하세요.</option>");
-    document.write("<option value='0:0'>00:00</option>/");
 
     while(open_sum <= last_sum)
     {
@@ -78,12 +87,37 @@
         }
         open_sum = (hour * 60) + minute;
     }
+    function getTime(){
+        const time = new Date();
+        const hour = time.getHours();
+        const minutes = time.getMinutes();
+        const seconds = time.getSeconds();
+        document.getElementById("clock").innerHTML = "현재시간 " + `${hour<10 ? `0${hour}`:hour}:${minutes<10 ? `0${minutes}`:minutes}:${seconds<10 ? `0${seconds}`:seconds}`;
+    }
+
+    function initTime(){
+        getTime();
+        setInterval(getTime, 1000);
+    }
 
     function reload2(){
         s = document.getElementById("time");
         s_time = s.options[s.selectedIndex].value;
         document.getElementById("selected_time").value = s_time;
         document.reload.submit();
+    }
+    function checkReserve(){
+        var split_time = selected_time.split(":");
+        for(i=0; i<reservation_time.length; i++)
+        {
+            var reserveDate = new Date(reservation_time[i]);
+            if(reserveDate.getHours() != split_time[0] && reserveDate.getMinutes() != split_time[1])
+            {
+                reservation_time.splice(i, 1);
+                reservation_seat.splice(i, 1);
+                i--;
+            }
+        }
     }
 
     function posibleCheck(){
@@ -124,6 +158,7 @@
     document.write("<input type=\"hidden\" id=\"id\" name=\"id\" value=" + store_id + " />");
     document.write("<input type=\"hidden\" id=\"store_name\" name=\"store_name\" value=" + store_name + " />");
     document.write("<input type='hidden' id='name' name='name' value="+member_id+">");
+    document.write("<input type='hidden' id='selected_time' name='selected_time' value="+selected_time+">");
 
     for(i = 0; i<table_y; i++)
     {
@@ -137,6 +172,7 @@
                     table_id = "자리 있음";
                     color = "color:red"
                     button_set = "disabled";
+                    button_set = null;
                 }
                 else {
                     table_id = "자리 없음";
@@ -145,7 +181,7 @@
                 }
             }
             else{
-                if(enter_seat.indexOf(String.fromCharCode(button_id)) != -1)
+                if(enter_seat.indexOf(String.fromCharCode(button_id)) != -1 || reservation_seat.indexOf(String.fromCharCode(button_id)) == -1)
                 {
                     table_id = "자리 없음";
                     color = "color:green"
