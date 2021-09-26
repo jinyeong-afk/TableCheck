@@ -7,6 +7,7 @@ public class ReservationForm {
     private long sequence;
     private String store_name;
     private String id;
+    private String reserve_date;
     private String reserve_time;
     private String menu_name;
     private int menu_num;
@@ -14,6 +15,14 @@ public class ReservationForm {
     private List<Integer> menuPriceList;
     private List<Integer> menuNumList;
     private String seat;
+
+    public String getReserve_date() {
+        return reserve_date;
+    }
+
+    public void setReserve_date(String reserve_date) {
+        this.reserve_date = reserve_date;
+    }
 
     public List<String> getMenuNameList() {
         return menuNameList;

@@ -15,7 +15,7 @@ public class JpaReservationRepository implements ReservationRepository{
 
     @Override
     public Reservation saveReserve(Reservation reservation) {
-        em.persist(reservation);
+        if(reservation.getMenu_num() > 0) em.persist(reservation);
         return reservation;
     }
 

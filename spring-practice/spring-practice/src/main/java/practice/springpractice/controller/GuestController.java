@@ -23,8 +23,6 @@ public class GuestController {
     private final MenuService menuService;
     private final ReservationService reservationService;
 
-
-
     @Autowired
     public GuestController(MemberService memberService, StoreService storeService, SeatService seatService, MenuService menuService, ReservationService reservationService) {
         this.memberService = memberService;
@@ -35,31 +33,25 @@ public class GuestController {
     }
 
     @PostMapping("Guest/reserve")
-    public String saveReserve(StoreForm storeForm, MemberForm memberForm, ReservationForm reservationForm, HttpServletResponse response, Model model) throws IOException {
-        Reservation reservation = new Reservation();
-        reservation.setId(memberForm.getName());
-        reservation.setReserve_time(reservationForm.getReserve_time());
-        reservation.setSeat(reservationForm.getSeat());
-        reservation.setStore_name(storeForm.getStore_name());
+    public String saveReserve(StoreForm storeForm, MemberForm memberForm, ReservationForm reservationForm, HttpServletResponse response, Model model) throws IOException, InterruptedException {
+
         for(int i=0; i<reservationForm.getMenuNameList().size(); i++)
         {
+            Reservation reservation = new Reservation();
+            reservation.setId(memberForm.getName());
+            reservation.setReserve_time(reservationForm.getReserve_time());
+            reservation.setReserve_date(reservationForm.getReserve_date());
+            reservation.setSeat(reservationForm.getSeat());
+            reservation.setStore_name(storeForm.getStore_name());
             reservation.setMenu_name(reservationForm.getMenuNameList().get(i));
             reservation.setMenu_num(reservationForm.getMenuNumList().get(i));
             reservationService.saveReserve(reservation);
         }
-        Store store = storeService.tableCheck(storeForm.getStore_name());
-        List<Seat> seatList = seatService.findAllSeat(storeForm.getStore_name());
-        List<Reservation> reservationList = reservationService.findReserve(storeForm.getStore_name());
-        model.addAttribute("reservationList", reservationList);
-        model.addAttribute("seatList", seatList);
-        model.addAttribute("store", store);
-        model.addAttribute("selected_time", null);
-        model.addAttribute("id", memberForm.getName());
-        return "Guest/table";
+        return tableCheck(storeForm, reservationForm, memberForm, model);
     }
 
     @PostMapping("Guest/reservationForm")
-    public String tableReserve(StoreForm storeForm, MemberForm memberForm, SeatForm seatForm, Model model, HttpServletResponse response) throws IOException {
+    public String tableReserve(StoreForm storeForm, MemberForm memberForm, SeatForm seatForm, ReservationForm reservationForm, Model model, HttpServletResponse response) throws IOException {
         Store store = new Store();
         store.setId(storeForm.getId());
         store.setStore_name(storeForm.getStore_name());
@@ -69,11 +61,12 @@ public class GuestController {
         model.addAttribute("id", memberForm.getName());
         model.addAttribute("store_name", storeForm.getStore_name());
         model.addAttribute("selected_time", storeForm.getSelected_time());
+        model.addAttribute("reserve_date", reservationForm.getReserve_date());
         return "Guest/reservation";
     }
 
     @PostMapping("Guest/tableCheck")
-    public String tableCheck(StoreForm storeForm, MemberForm memberForm, Model model) {
+    public String tableCheck(StoreForm storeForm, ReservationForm reservationForm, MemberForm memberForm, Model model) {
         Store store = storeService.tableCheck(storeForm.getStore_name());
         List<Seat> seatList = seatService.findAllSeat(storeForm.getStore_name());
         List<Reservation> reservationList = reservationService.findReserve(storeForm.getStore_name());
@@ -82,6 +75,7 @@ public class GuestController {
         model.addAttribute("store", store);
         model.addAttribute("selected_time", storeForm.getSelected_time());
         model.addAttribute("id", memberForm.getName());
+        model.addAttribute("reserve_date", reservationForm.getReserve_date());
         return "Guest/table";
     }
 

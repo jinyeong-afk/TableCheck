@@ -16,6 +16,15 @@ public class Reservation {
     private String menu_name;
     private int menu_num;
     private String seat;
+    private String reserve_date;
+
+    public String getReserve_date() {
+        return reserve_date;
+    }
+
+    public void setReserve_date(String reserve_date) {
+        this.reserve_date = reserve_date;
+    }
 
     public long getSequence() {
         return sequence;

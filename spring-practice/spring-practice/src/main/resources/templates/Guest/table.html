@@ -47,6 +47,30 @@
     var s
     var s_time;
     var member_id = [[${id}]];
+    var today = new Date();
+    var difDate = new Date();
+    difDate.setMonth(10);
+    difDate.setDate(10);
+    var today_year;
+    var today_month;
+    var today_day;
+    var reserve_date = [[${reserve_date}]];
+    today_year = today.getFullYear();
+    if(today.getMonth() < difDate.getMonth())
+    {
+        today_month = ('0' + (today.getMonth()+1)).slice(-2);
+    }
+    else
+        today_month = today.getMonth();
+    if(today.getDate() < difDate.getDate())
+    {
+        today_day = ('0' + (today.getDate())).slice(-2)
+    }
+    else
+        today_day = today.getDate();
+    if(reserve_date == null) var check_date_value = today.getFullYear() + "-" + today_month + "-" + today_day;
+    else check_date_value = reserve_date;
+
 
     reservationList.forEach(function(item){
         reservation_time.push(item.reserve_time);
@@ -66,10 +90,11 @@
         posibleCheck();
         checkReserve();
     }
-    initTime();
 
+    initTime(); // 시계 함수 동작
 
     document.write("<form name='reload' action=\"/Guest/tableCheck\" method=\"post\">");
+    document.write("날짜<input type='date' id='reserve_date' name='reserve_date' min="+check_date_value+" value="+check_date_value+">");
     document.write("<label for=\"time\">시간</label>");
     document.write("<select id=\"time\" class='time' name=\"time\" size = \"1\" onchange=\"reload2()\">");
     document.write("<option value=\"\">선택하세요.</option>");
@@ -77,16 +102,25 @@
     while(open_sum <= last_sum)
     {
         if(minute == 0) {
-            document.write("<option value=" + hour+ ":" + minute +">" + hour + ":" + minute + minute + "</option>");
+            if(selected_time == (hour+":"+minute))
+            {
+                document.write("<option value=" + hour+ ":" + minute +" selected>" + hour + ":" + minute + minute + "</option>");
+            }
+            else document.write("<option value=" + hour+ ":" + minute +">" + hour + ":" + minute + minute + "</option>");
             minute = 30;
         }
         else if(minute == 30) {
-            document.write("<option value=" + hour+ ":" + minute +">" + hour + ":" + minute + "</option>");
+            if(selected_time == (hour+":"+minute))
+            {
+                document.write("<option value=" + hour+ ":" + minute +" selected>" + hour + ":" + minute + "</option>");
+            }
+            else document.write("<option value=" + hour+ ":" + minute +">" + hour + ":" + minute + "</option>");
             minute = 0;
             hour += 1;
         }
         open_sum = (hour * 60) + minute;
     }
+
     function getTime(){
         const time = new Date();
         const hour = time.getHours();
@@ -104,8 +138,11 @@
         s = document.getElementById("time");
         s_time = s.options[s.selectedIndex].value;
         document.getElementById("selected_time").value = s_time;
+        const getDate = document.querySelector("#reserve_date").value;
+        document.getElementById("reserve_date").value = getDate;
         document.reload.submit();
     }
+
     function checkReserve(){
         var split_time = selected_time.split(":");
         for(i=0; i<reservation_time.length; i++)
@@ -144,12 +181,11 @@
         }
     }
 
-    // document.write("<input type='hidden' id='hour' name='hour' value=" + hour + ">");
-    // document.write("<input type='hidden' id='minute' name='minute' value=" + minute + ">");
     document.write("<input type='hidden' id='id' name='id' value=" + store_id + ">");
     document.write("<input type='hidden' id='store_name' name='store_name' value=" + store_name + ">");
     document.write("<input type='hidden' id='table_x' name='table_x' value=" + table_x + ">");
     document.write("<input type='hidden' id='table_y' name='table_y' value=" + table_y + ">");
+    document.write("<input type='hidden' id='name' name='name' value="+member_id+">");
     document.write("<input type='hidden' id='selected_time' name='selected_time' value="+s_time+">");
     document.write("</select>");
     document.write("</form>");
@@ -159,7 +195,7 @@
     document.write("<input type=\"hidden\" id=\"store_name\" name=\"store_name\" value=" + store_name + " />");
     document.write("<input type='hidden' id='name' name='name' value="+member_id+">");
     document.write("<input type='hidden' id='selected_time' name='selected_time' value="+selected_time+">");
-
+    document.write("<input type='hidden' name='reserve_date' value="+reserve_date+">");
     for(i = 0; i<table_y; i++)
     {
         for(j=0; j<table_x; j++)
@@ -172,12 +208,11 @@
                     table_id = "자리 있음";
                     color = "color:red"
                     button_set = "disabled";
-                    button_set = null;
                 }
                 else {
                     table_id = "자리 없음";
                     color = "color:green"
-                    button_set = null;
+                    button_set = "disabled";
                 }
             }
             else{

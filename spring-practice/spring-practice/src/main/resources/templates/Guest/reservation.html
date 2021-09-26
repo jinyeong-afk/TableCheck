@@ -6,13 +6,13 @@
     <title>예약</title>
 </head>
 <body>
-<form name="reservationForm" action="/Guest/reserve" method="post">
+<form name="reservationForm" action="/Guest/reserve" method="post" onsubmit="return check()">
     <input type="hidden" id="name" name="name" th:value="${id}">
     <input type="hidden" id="store_name" name="store_name" th:value="${store_name}">
     <input type="hidden" id="seat" name="seat" th:value="${seat}">
 <script th:inline="javascript">
     var selected_time = [[${selected_time}]];
-    alert(selected_time);
+    var reserve_date = [[${reserve_date}]];
     let menuList = [[${menu}]];
     let menu_name = new Array();
     let menu_price = new Array();
@@ -21,10 +21,26 @@
        menu_name.push(item.menu_name);
        menu_price.push(item.price);
        document.write(item.menu_name + "(" + item.price + "원)");
-       document.write("<input type='text' placeholder='음식 수량' name='menuNumList[]'>개<br>");
+       document.write("<input type='number' min='0' max='10000' placeholder='음식 수량' name='menuNumList[]' value='0'>개<br>");
     });
     document.write("<input type='hidden' name='menuNameList[]' value="+menu_name+">");
     document.write("<input type='hidden' name='menuPriceList[]' value="+menu_price+">");
+    document.write("<input type='hidden' name='reserve_time' value="+selected_time+">");
+    document.write("<input type='hidden' name='reserve_date' value="+reserve_date+">");
+
+    function check(){
+        var i;
+        var menuNumList = document.getElementsByName("menuNumList[]");
+        for(i=0; i<menuNumList.length; i++)
+        {
+            if(menuNumList[i].value == "" || menuNumList[i].value < 0)
+            {
+                alert("개수를 정확히 입력해주세요");
+                menuNumList[i].focus();
+                return false;
+            }
+        }
+    }
 </script>
 
     <button type="submit">제출하기</button>
