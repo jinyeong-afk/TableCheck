@@ -19,5 +19,5 @@ public class ReservationService {
         return reservationRepository.saveReserve(reservation);
     }
 
-    public List<Reservation> findReserve(String store_name) {return reservationRepository.findReserve(store_name);}
+    public List<Reservation> findReserve(String getValue, int value) {return reservationRepository.findReserve(getValue, value);}
 }

@@ -26,16 +26,11 @@
             <input type="hidden" id="name" name="name" th:value="${id}">
         </form>
 
-        <table>
-            <thread>
-                <tr>
-                    <th>#</th>
-                    <th>이름</th>
-                </tr>
-            </thread>
-            <tbody>
-            </tbody>
-        </table>
+        <from action="/Guest/checkReserve">
+            <input type="hidden" id="name2" name="name" th:value="${id}">
+            <button type="submit">예약내역 조회</button>
+        </from>
+
     </div>
 </div>
 </body>

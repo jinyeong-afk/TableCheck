@@ -30,6 +30,7 @@
     var table_id;
     var color;
     let reservationList = [[${reservationList}]];
+    let reservation_date = new Array();
     let reservation_time = new Array();
     let reservation_seat = new Array();
     let seatList = [[${seatList}]];
@@ -41,6 +42,7 @@
     var open_time = [[${store.open_time}]].split(":");
     var hour = parseInt(open_time[0]);
     var minute = parseInt(open_time[1]);
+
     var last_order = [[${store.last_order}]].split(":");
     var open_sum = (hour * 60) + minute;
     var last_sum = (parseInt(last_order[0] * 60)) + parseInt(last_order[1]);
@@ -55,6 +57,7 @@
     var today_month;
     var today_day;
     var reserve_date = [[${reserve_date}]];
+    var check_date_value
     today_year = today.getFullYear();
     if(today.getMonth() < difDate.getMonth())
     {
@@ -68,13 +71,31 @@
     }
     else
         today_day = today.getDate();
-    if(reserve_date == null) var check_date_value = today.getFullYear() + "-" + today_month + "-" + today_day;
+    var today_value = today.getFullYear() + "-" + today_month + "-" + today_day;
+    if(reserve_date == null) check_date_value = today_value;
     else check_date_value = reserve_date;
 
+    if(hour <= today.getHours() && check_date_value == today_value)  // 현재 시간에 따른 시간 option
+    {
+        hour = today.getHours();
+        if(today.getMinutes() >= 30){
+            hour += 1;
+            minute = 0;
+        }
+        else
+        {
+            minute = 30;
+        }
+    }
 
     reservationList.forEach(function(item){
-        reservation_time.push(item.reserve_time);
-        reservation_seat.push(item.seat);
+        if(check_date_value == item.reserve_date && selected_time == item.reserve_time.substring(0,4))
+        {
+            reservation_date.push(item.reserve_date);
+            reservation_time.push(item.reserve_time);
+            reservation_seat.push(item.seat);
+        }
+
     });
 
     seatList.forEach(function(item){
@@ -88,16 +109,15 @@
     if(selected_time != null)
     {
         posibleCheck();
-        checkReserve();
     }
 
     initTime(); // 시계 함수 동작
 
     document.write("<form name='reload' action=\"/Guest/tableCheck\" method=\"post\">");
-    document.write("날짜<input type='date' id='reserve_date' name='reserve_date' min="+check_date_value+" value="+check_date_value+">");
+    document.write("날짜<input type='date' id='reserve_date' name='reserve_date' min="+today_value+" value="+check_date_value+" onchange='reload2()'>");
     document.write("<label for=\"time\">시간</label>");
     document.write("<select id=\"time\" class='time' name=\"time\" size = \"1\" onchange=\"reload2()\">");
-    document.write("<option value=\"\">선택하세요.</option>");
+    if(check_date_value == today_value) document.write("<option value=\"\">현재시간</option>");
 
     while(open_sum <= last_sum)
     {
@@ -121,6 +141,14 @@
         open_sum = (hour * 60) + minute;
     }
 
+
+
+    if(check_date_value != today_value &&selected_time == "")
+    {
+        var e = document.getElementById("time");
+        e.options[0].setAttribute('selected', '');
+    }
+
     function getTime(){
         const time = new Date();
         const hour = time.getHours();
@@ -141,20 +169,6 @@
         const getDate = document.querySelector("#reserve_date").value;
         document.getElementById("reserve_date").value = getDate;
         document.reload.submit();
-    }
-
-    function checkReserve(){
-        var split_time = selected_time.split(":");
-        for(i=0; i<reservation_time.length; i++)
-        {
-            var reserveDate = new Date(reservation_time[i]);
-            if(reserveDate.getHours() != split_time[0] && reserveDate.getMinutes() != split_time[1])
-            {
-                reservation_time.splice(i, 1);
-                reservation_seat.splice(i, 1);
-                i--;
-            }
-        }
     }
 
     function posibleCheck(){
@@ -196,12 +210,13 @@
     document.write("<input type='hidden' id='name' name='name' value="+member_id+">");
     document.write("<input type='hidden' id='selected_time' name='selected_time' value="+selected_time+">");
     document.write("<input type='hidden' name='reserve_date' value="+reserve_date+">");
+
     for(i = 0; i<table_y; i++)
     {
         for(j=0; j<table_x; j++)
         {
             button_id++;
-            if(selected_time == null)
+            if((selected_time == null || selected_time == "") && check_date_value == today_value)
             {
                 if(seat.indexOf(String.fromCharCode(button_id)) != -1)
                 {

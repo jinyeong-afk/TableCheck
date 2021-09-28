@@ -20,9 +20,12 @@ public class JpaReservationRepository implements ReservationRepository{
     }
 
     @Override
-    public List<Reservation> findReserve(String store_name) {
-        return em.createQuery("select r from Reservation r where r.store_name = :store_name", Reservation.class)
-                .setParameter("store_name", store_name)
+    public List<Reservation> findReserve(String getValue, int value) {
+        if(value == 1) return em.createQuery("select r from Reservation r where r.store_name = :store_name", Reservation.class)
+                .setParameter("store_name", getValue)
+                .getResultList();
+        else return em.createQuery("select r from Reservation r where r.id = :id", Reservation.class)
+                .setParameter("id", getValue)
                 .getResultList();
     }
 }

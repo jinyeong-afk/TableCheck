@@ -32,6 +32,14 @@ public class GuestController {
         this.reservationService = reservationService;
     }
 
+    @PostMapping("Guest/checkReserve")
+    public String checkReserve(StoreForm storeForm, MemberForm memberForm, ReservationForm reservationForm, Model model)
+    {
+        List<Reservation> reservationDetails = reservationService.findReserve(memberForm.getName(), 2);
+        model.addAttribute("reservationDetails", reservationDetails);
+        return "reservationDetails";
+    }
+
     @PostMapping("Guest/reserve")
     public String saveReserve(StoreForm storeForm, MemberForm memberForm, ReservationForm reservationForm, HttpServletResponse response, Model model) throws IOException, InterruptedException {
 
@@ -69,7 +77,7 @@ public class GuestController {
     public String tableCheck(StoreForm storeForm, ReservationForm reservationForm, MemberForm memberForm, Model model) {
         Store store = storeService.tableCheck(storeForm.getStore_name());
         List<Seat> seatList = seatService.findAllSeat(storeForm.getStore_name());
-        List<Reservation> reservationList = reservationService.findReserve(storeForm.getStore_name());
+        List<Reservation> reservationList = reservationService.findReserve(storeForm.getStore_name(), 1);
         model.addAttribute("reservationList", reservationList);
         model.addAttribute("seatList", seatList);
         model.addAttribute("store", store);
