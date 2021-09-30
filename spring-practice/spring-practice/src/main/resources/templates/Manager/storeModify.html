@@ -3,8 +3,62 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>매장 수정</title>
+
+    <style>
+         #store_name, #area, #close_time, #manager, #table_x, #table_y, #open_time, #close_time, #last_order {
+            width: 300px;
+            height: 50px;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            border-bottom: 3px solid black;
+             text-align: center;
+        }
+         .total{
+             display: flex;
+             justify-content: center;
+             align-items: center;
+             min-height: 80vh;
+             border-top: 3px solid lightskyblue;
+             border-left: 3px solid lightskyblue;
+             border-right: 3px solid lightskyblue;
+             border-bottom: 3px solid lightskyblue;
+         }
+         button {
+             -webkit-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+             -moz-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+             -ms-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+             -o-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+             transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+             display: block;
+             margin: 20px auto;
+             max-width: 180px;
+             text-decoration: none;
+             border-radius: 4px;
+             padding: 20px 30px;
+         }
+         .delCl{
+             margin: 20px auto;
+             max-width: 180px;
+             text-decoration: none;
+             border-radius: 4px;
+             padding: 20px 30px;
+         }
+
+         .subCl {
+             color: rgba(30, 22, 54, 0.6);
+             box-shadow: rgba(30, 22, 54, 0.4) 0 0px 0px 2px inset;
+         }
+         .subCl:hover {
+             color: rgba(255, 255, 255, 0.85);
+             box-shadow: rgba(30, 22, 54, 0.7) 0 0px 0px 40px inset;
+         }
+    </style>
+
 </head>
 <body>
+<h1 align="center" style="border-top: 3px solid dodgerblue; border-right: 3px solid dodgerblue; border-left: 3px solid dodgerblue; border-bottom: 3px solid dodgerblue;">가게정보 수정</h1>
+<div class="total">
 <script th:inline="javascript">
     var id = [[${store.id}]];
     var store_name = [[${store.store_name}]];
@@ -43,7 +97,9 @@
     display();
     document.write("</div>");
     document.write("<input type='hidden' id='sequence' name='sequenceList' value=" + sequenceList +">")
-    document.write("<button type='submit'>제출</button>");
+    document.write("<div class='subclass'>");
+    document.write("<button class='subCl' type='submit'>제출</button>");
+    document.write("</div>");
     document.write("</form>");
     function check(){
         var s = document.modifyFm;
@@ -99,7 +155,7 @@
     }
 
     function display() {
-        var count = 1;
+        var count = 0;
         document.getElementById('menu').innerHTML="";
         for (intI=0;intI<arrInput.length;intI++) {
             count += 1
@@ -118,14 +174,14 @@
 
     function createInput(id,value) {
         return ". <input type='text' id='menuList"+ id +"' name='menuList[]' placeholder='메뉴 이름' onChange='javascript:saveValue("+ id +",this.value)' value='"+
-            value +"'>";
+            value +"' style='width: 300px; height: 50px; border-top: none; border-left: none; border-right: none; border-bottom: 3px solid black; text-align: center;'>";
     }
 
     function createInput2(id, value){
         delete_count += 1;
         return ". <input type='text' id='priceList"+ id +"' name='priceList[]' placeholder='메뉴 가격' onChange='javascript:saveValue2("+ id +",this.value)' value='" +
-            value +"'>" +
-            "<input type='button' value='삭제' onclick='deleteInput("+ delete_count +")'><br>";
+            value +"' style='width: 300px; height: 50px; border-top: none; border-left: none; border-right: none; border-bottom: 3px solid black; text-align: center;'>" +
+            "<input type='button' class='delCl' value='삭제' onclick='deleteInput("+ delete_count +")'><br>";
 
     }
 
@@ -140,5 +196,6 @@
         display();
     }
 </script>
+</div>
 </body>
 </html>

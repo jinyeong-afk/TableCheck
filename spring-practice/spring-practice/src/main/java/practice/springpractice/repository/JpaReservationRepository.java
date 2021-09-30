@@ -24,7 +24,7 @@ public class JpaReservationRepository implements ReservationRepository{
         if(value == 1) return em.createQuery("select r from Reservation r where r.store_name = :store_name", Reservation.class)
                 .setParameter("store_name", getValue)
                 .getResultList();
-        else return em.createQuery("select r from Reservation r where r.id = :id", Reservation.class)
+        else return em.createQuery("select r from Reservation r where r.id = :id order by r.reserve_date asc, r.reserve_time asc", Reservation.class)
                 .setParameter("id", getValue)
                 .getResultList();
     }

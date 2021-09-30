@@ -2,36 +2,70 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>테이블체크</title>
+    <style>
+        #name, #pass {
+            width: 300px;
+            height: 50px;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            border-bottom: 3px solid black;
+            text-align: center;
+        }
+        .loginCl{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh;
+            border-top: 3px solid lightskyblue;
+            border-left: 3px solid lightskyblue;
+            border-right: 3px solid lightskyblue;
+            border-bottom: 3px solid lightskyblue;
+        }
+        .login, .join {
+            -webkit-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+            -moz-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+            -ms-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+            -o-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+            transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+            margin: 20px auto;
+            max-width: 180px;
+            text-decoration: none;
+            border-radius: 4px;
+            padding: 60px 30px;
+        }
+        .login, .join {
+            color: rgba(30, 22, 54, 0.6);
+            box-shadow: rgba(30, 22, 54, 0.4) 0 0px 0px 2px inset;
+        }
+        .login:hover, .join:hover {
+            color: rgba(255, 255, 255, 0.85);
+            box-shadow: rgba(30, 22, 54, 0.7) 0 0px 0px 40px inset;
+        }
+    </style>
 </head>
 <body>
 
 <div class="container">
-    <div>
-
-        <h1>Hello Spring</h1>
-        <p>회원 기능</p>
-        <p>
-            <a href="/members/new">회원 가입</a>
-            <a href="/members">회원 목록</a>
-        </p>
-
+    <h1 align="center" style="border-top: 3px solid dodgerblue; border-right: 3px solid dodgerblue; border-left: 3px solid dodgerblue; border-bottom: 3px solid dodgerblue;">테이블체크</h1><br>
+    <div class="loginCl">
 
         <form action="/login" method="post">
-            <div class="form-group">
-                <label for="name">아이디</label>
-                <input type="text" id="name" name="name" placeholder="아이디를 입력하세요">
-                <label for="pass">비번</label>
-                <input type="password" id="pass" name="pass" placeholder="비번을 입력하세요">
-                <p th:text="${msg}">
-                    "Wait"
-                </p>
+            <div style="float:left; width:33%;">
+                <label for="name"><b>아이디</b></label>
+                <input type="text" id="name" name="name" placeholder="아이디를 입력하세요"><br>
+                <label for="pass"><b>비번</b></label>
+                <input type="password" id="pass" name="pass" placeholder="비번을 입력하세요"><br>
             </div>
-            <button type="submit">로그인</button>
+            <div style="float:right; width:33%;">
+            <button class="login" type="submit"><b>로그인</b></button><br>
+            </div>
         </form>
+
+        <b align="center" size="3px" style="color: burlywood;">아직 비회원이신가요? &nbsp;&nbsp; <button class="join" type="submit" onclick="location.href='/members/new'"><b>회원 가입</b></button></b>
+
     </div>
-
 </div>
-
 </body>
 </html>

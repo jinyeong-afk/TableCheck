@@ -37,7 +37,7 @@ public class GuestController {
     {
         List<Reservation> reservationDetails = reservationService.findReserve(memberForm.getName(), 2);
         model.addAttribute("reservationDetails", reservationDetails);
-        return "reservationDetails";
+        return "Guest/reservationDetails";
     }
 
     @PostMapping("Guest/reserve")

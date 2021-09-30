@@ -1,10 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>예약내역</title>
+<head>
 <body>
-
+<h1>예약내역</h1>
+<script th:inline="javascript">
+    let reservationDetails = [[${reservationDetails}]];
+    reservationDetails.forEach(function(item){
+       document.write("예약날짜: " + item.reserve_date + "  예약시간: " + item.reserve_time + "  가게이름: " + item.store_name + "  메뉴이름: " +
+       item.menu_name + "개수: " + item.menu_num+"<br><br>");
+    });
+</script>
 </body>
 </html>

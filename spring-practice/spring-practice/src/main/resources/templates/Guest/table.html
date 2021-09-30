@@ -210,7 +210,8 @@
     document.write("<input type='hidden' id='name' name='name' value="+member_id+">");
     document.write("<input type='hidden' id='selected_time' name='selected_time' value="+selected_time+">");
     document.write("<input type='hidden' name='reserve_date' value="+reserve_date+">");
-
+    var e = document.getElementById("time");
+    document.getElementById("selected_time").value = e.options[0].value;
     for(i = 0; i<table_y; i++)
     {
         for(j=0; j<table_x; j++)

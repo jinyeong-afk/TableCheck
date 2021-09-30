@@ -26,12 +26,27 @@
             <input type="hidden" id="name" name="name" th:value="${id}">
         </form>
 
-        <from action="/Guest/checkReserve">
+        <form name="checkForm" action="/Guest/checkReserve" method="post" onsubmit="return backsubmit()">
             <input type="hidden" id="name2" name="name" th:value="${id}">
-            <button type="submit">예약내역 조회</button>
-        </from>
+            <button name="noTurn" type="submit">예약내역 조회</button>
+            <button name="turn" type="submit" onclick="setValue()">뒤로가기</button>
+        </form>
 
     </div>
 </div>
+<script th:inline="javascript">
+    function setValue(){
+        document.getElementsByName("turn").value = "pressed";
+    }
+    function backsubmit(){
+        var c = document.checkForm;
+        if(document.getElementsByName("turn").value == "pressed")
+        {
+            window.history.back();
+            return false;
+        }
+        else return true;
+    }
+</script>
 </body>
 </html>

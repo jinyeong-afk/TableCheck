@@ -3,22 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+    <style>
+        #name {
+            width: 300px;
+            height: 50px;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            border-bottom: 3px solid black;
+        }
+        #pass {
+            width: 300px;
+            height: 50px;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            border-bottom: 3px solid black;
+        }
+        .container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh;
+            border-top: 3px solid lightskyblue;
+            border-left: 3px solid lightskyblue;
+            border-right: 3px solid lightskyblue;
+            border-bottom: 3px solid lightskyblue;
+        }
+        .register, .back {
+            -webkit-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+            -moz-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+            -ms-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+            -o-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+            transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+            margin: 20px auto;
+            max-width: 180px;
+            text-decoration: none;
+            border-radius: 4px;
+            padding: 20px 30px;
+        }
+        .register, .back {
+            color: rgba(30, 22, 54, 0.6);
+            box-shadow: rgba(30, 22, 54, 0.4) 0 0px 0px 2px inset;
+        }
+        .register:hover, .back:hover {
+            color: rgba(255, 255, 255, 0.85);
+            box-shadow: rgba(30, 22, 54, 0.7) 0 0px 0px 40px inset;
+        }
+    </style>
 </head>
 <body>
-
+<h1 align="center" style="border-top: 3px solid dodgerblue; border-right: 3px solid dodgerblue; border-left: 3px solid dodgerblue; border-bottom: 3px solid dodgerblue;">회원가입</h1>
 <div class="container">
-    <form action="/members/new" method="post">
+    <form name="joinForm" action="/members/new" method="post" onsubmit="return check()">
         <div class="form-group">
-            <label for="name">아이디</label>
-            <input type="text" id="name" name="name" placeholder="이름을 입력하세요">
-            <label for="pass">비번</label>
-            <input type="password" id="pass" name="pass" placeholder="비번을 입력하세요">
-            <input type="radio" name="value" value=1>매장 관리자
-            <input type="radio" name="value" value=2>손님
+            <label for="name"><b>아이디</b></label>
+            <input type="text" id="name" name="name" placeholder="아이디를 입력하세요"><br>
+            <label for="pass"><b>비번</b></label>
+            <input type="password" id="pass" name="pass" placeholder="비번을 입력하세요"><br><br>
+            <input type="radio" name="value" value=1><b>매장 관리자</b>
+            <input type="radio" name="value" value=2><b>손님</b>
         </div>
-        <button type="submit">등록</button>
+        <button class="register" id="gosubmit" name="gosubmit" type="submit"><b>등록</b></button>
+        <button class="back" name="turn" type="submit" onclick="back()"><b>뒤로가기</b></button>
     </form>
 </div>
-
+<script th:inline="javascript">
+    function back(){
+        document.getElementsByName("turn").value = "pressed"
+        window.history.back();
+    }
+    function check(){
+        var j = document.joinForm;
+        if(document.getElementsByName("turn").value == "pressed") return false;
+        else if(j.name.value == "")
+        {
+            alert("아이디를 입력해주세요");
+            j.name.focus();
+            return false;
+        }
+        else if(j.pass.value == "")
+        {
+            alert("비번을 입력해주세요");
+            j.pass.focus();
+            return false;
+        }
+        else if(document.getElementsByName('value').value == "")
+        {
+            alert("매장관리자인지 손님인지 선택해주세요");
+            return false;
+        }
+        return true;
+    }
+</script>
 </body>
 </html>
