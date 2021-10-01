@@ -2,22 +2,73 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>좌석조회</title>
+    <style>
+        #reserve_date, #time {
+            width: 300px;
+            height: 50px;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            border-bottom: 3px solid black;
+            text-align: center;
+        }
+        .container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+            border-top: 3px solid lightskyblue;
+            border-left: 3px solid lightskyblue;
+            border-right: 3px solid lightskyblue;
+            border-bottom: 3px solid lightskyblue;
+        }
+        button {
+            -webkit-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+            -moz-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+            -ms-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+            -o-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+            transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+            margin: 20px auto;
+            max-width: 180px;
+            text-decoration: none;
+            border-radius: 4px;
+            padding: 10px 15px;
+        }
+        button {
+            color: rgba(30, 22, 54, 0.6);
+            box-shadow: rgba(30, 22, 54, 0.4) 0 0px 0px 2px inset;
+        }
+        button:hover {
+            color: rgba(255, 255, 255, 0.85);
+            box-shadow: rgba(30, 22, 54, 0.7) 0 0px 0px 40px inset;
+        }
+    </style>
 </head>
 <body>
-<p style="display:inline">가게명: </p>
-<p style="display:inline" th:text="${store.store_name}"></p>
-<p style="display:inline">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 지역명: </p>
-<p style="display:inline" th:text="${store.area}"></p></br></br>
-<p style="display:inline">오픈시간: </p>
-<p style="display:inline" th:text="${store.open_time}"></p>
-<p style="display:inline">&nbsp; &nbsp; &nbsp; 라스트 오더: </p>
-<p style="display:inline" th:text="${store.last_order}"></p>
-<p style="display:inline">&nbsp; &nbsp; &nbsp; 마감시간: </p>
-<p style="display:inline" th:text="${store.close_time}"></p><br><br>
-<div id="clock" name="clock">
+<h1 align="center" style="border-top: 3px solid dodgerblue; border-right: 3px solid dodgerblue; border-left: 3px solid dodgerblue; border-bottom: 3px solid dodgerblue;">좌석조회</h1>
+<div class="container">
+    <div id="clock" name="clock">
 
-</div>
+    </div>
+    <table border="3px">
+        <th>지역</th>
+        <th>가게이름</th>
+        <th>테이블수</th>
+        <th>오픈시간</th>
+        <th>클로즈시간</th>
+        <th>라스트오더</th>
+            <tr>
+                <td th:text="${store.area}"></td>
+                <td th:text="${store.store_name}"></td>
+                <td th:text="|${store.table_x} x ${store.table_y}|"></td>
+                <td th:text="${store.open_time}"></td>
+                <td th:text="${store.close_time}"></td>
+                <td th:text="${store.last_order}"></td>
+            </tr>
+    </table><br>
+
 
 <script th:inline="javascript">
     var i, j;
@@ -117,7 +168,7 @@
     document.write("날짜<input type='date' id='reserve_date' name='reserve_date' min="+today_value+" value="+check_date_value+" onchange='reload2()'>");
     document.write("<label for=\"time\">시간</label>");
     document.write("<select id=\"time\" class='time' name=\"time\" size = \"1\" onchange=\"reload2()\">");
-    if(check_date_value == today_value) document.write("<option value=\"\">현재시간</option>");
+    if(check_date_value == today_value) document.write("<option value=\"\">현재시간(예약불가)</option>");
 
     while(open_sum <= last_sum)
     {
@@ -154,7 +205,7 @@
         const hour = time.getHours();
         const minutes = time.getMinutes();
         const seconds = time.getSeconds();
-        document.getElementById("clock").innerHTML = "현재시간 " + `${hour<10 ? `0${hour}`:hour}:${minutes<10 ? `0${minutes}`:minutes}:${seconds<10 ? `0${seconds}`:seconds}`;
+        document.getElementById("clock").innerHTML = "<h2>현재시간 " + `${hour<10 ? `0${hour}`:hour}:${minutes<10 ? `0${minutes}`:minutes}:${seconds<10 ? `0${seconds}`:seconds}` + "</h2>";
     }
 
     function initTime(){
@@ -212,6 +263,7 @@
     document.write("<input type='hidden' name='reserve_date' value="+reserve_date+">");
     var e = document.getElementById("time");
     document.getElementById("selected_time").value = e.options[0].value;
+    document.write("<h3 align='center'>좌석현황(버튼 클릭시 예약)</h3>");
     for(i = 0; i<table_y; i++)
     {
         for(j=0; j<table_x; j++)
@@ -250,6 +302,7 @@
         document.write("</br>")
     }
     document.write("</tr>");
+    // document.write("<button type=\"button\" onclick='document.location.'>뒤로가기</button>")
     document.write("</form>");
     function check() {
         if(confirm("해당 좌석을 예약하시겠습니까?")){
@@ -261,5 +314,6 @@
 
     }
 </script>
+</div>
 </body>
 </html>

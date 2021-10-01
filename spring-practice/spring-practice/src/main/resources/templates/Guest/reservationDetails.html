@@ -2,16 +2,43 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>예약내역</title>
+    <title>예약내역 조회</title>
+    <style>
+        .container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh;
+            border-top: 3px solid lightskyblue;
+            border-left: 3px solid lightskyblue;
+            border-right: 3px solid lightskyblue;
+            border-bottom: 3px solid lightskyblue;
+        }
+    </style>
 <head>
 <body>
-<h1>예약내역</h1>
+<h1 align="center" style="border-top: 3px solid dodgerblue; border-right: 3px solid dodgerblue; border-left: 3px solid dodgerblue; border-bottom: 3px solid dodgerblue;">예약내역 조회</h1>
+<h2 align="center">예약내역</h2>
+<div class="container">
+    <table border="3px">
+        <th>예약날짜</th>
+        <th>예약시간</th>
+        <th>가게이름</th>
+        <th>메뉴이름</th>
+        <th>개수</th>
 <script th:inline="javascript">
     let reservationDetails = [[${reservationDetails}]];
     reservationDetails.forEach(function(item){
-       document.write("예약날짜: " + item.reserve_date + "  예약시간: " + item.reserve_time + "  가게이름: " + item.store_name + "  메뉴이름: " +
-       item.menu_name + "개수: " + item.menu_num+"<br><br>");
+        document.write("<tr>");
+        document.write("<td align='center' width='150px'>" + item.reserve_date + "</td>");
+        document.write("<td align='center' width='150px'>" + item.reserve_time + "</td>");
+        document.write("<td align='center' width='150px'>" + item.store_name + "</td>");
+        document.write("<td align='center' width='150px'>" + item.menu_name + "</td>");
+        document.write("<td align='center' width='150px'>" + item.menu_num + "</td>");
+        document.write("</tr>");
     });
 </script>
+    </table>
+</div>
 </body>
 </html>

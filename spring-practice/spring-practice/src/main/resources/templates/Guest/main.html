@@ -2,36 +2,77 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>손님</title>
+    <title>매장 검색</title>
+    <style>
+        #store_name, #area {
+            width: 300px;
+            height: 50px;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            border-bottom: 3px solid black;
+            text-align: center;
+        }
+        .container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh;
+            border-top: 3px solid lightskyblue;
+            border-left: 3px solid lightskyblue;
+            border-right: 3px solid lightskyblue;
+            border-bottom: 3px solid lightskyblue;
+        }
+        button {
+            -webkit-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+            -moz-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+            -ms-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+            -o-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+            transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+            margin: 20px auto;
+            max-width: 180px;
+            text-decoration: none;
+            border-radius: 4px;
+            padding: 20px 30px;
+        }
+        .turn, .noTurn, .search {
+            color: rgba(30, 22, 54, 0.6);
+            box-shadow: rgba(30, 22, 54, 0.4) 0 0px 0px 2px inset;
+        }
+        .turn:hover, .noTurn:hover, .search:hover {
+            color: rgba(255, 255, 255, 0.85);
+            box-shadow: rgba(30, 22, 54, 0.7) 0 0px 0px 40px inset;
+        }
+    </style>
 </head>
 <body>
-<p>Guest 로그인</p>
+<h1 align="center" style="border-top: 3px solid dodgerblue; border-right: 3px solid dodgerblue; border-left: 3px solid dodgerblue; border-bottom: 3px solid dodgerblue;">매장 검색</h1>
 <div class="container">
     <div>
         <form action="/Guest/search" method="post">
             <div class="form-search">
-                <label for="store_name">가게 이름</label>
+                <label for="store_name"><b>가게 이름</b></label>
                 <input type="text" id="store_name" name="store_name" placeholder="가게 이름을 입력하세요">
-                <label for="area">지역</label>
+                <label for="area"><b>지역</b></label>
                 <select id="area" name="area" size = "1">
-                    <option value="">선택하세요.</option>
+                    <option value="">전체</option>
                     <option value="서울">서울</option>
                     <option value="경기">경기</option>
                     <option value="마산">마산</option>
                     <option value="부산">부산</option>
                     <option value="울산">울산</option>
                 </select>
-                <button type="submit">검색</button>
+                <button class="search" type="submit"><b>검색</b></button>
             </div>
             <input type="hidden" id="name" name="name" th:value="${id}">
         </form>
-
+        <div class="check" style="text-align: center;">
         <form name="checkForm" action="/Guest/checkReserve" method="post" onsubmit="return backsubmit()">
             <input type="hidden" id="name2" name="name" th:value="${id}">
-            <button name="noTurn" type="submit">예약내역 조회</button>
-            <button name="turn" type="submit" onclick="setValue()">뒤로가기</button>
+            <button class="noTurn" name="noTurn" type="submit"><b>예약내역 조회</b></button>
+            <button class="turn" name="turn" type="submit" onclick="setValue()"><b>뒤로가기</b></button>
         </form>
-
+        </div>
     </div>
 </div>
 <script th:inline="javascript">

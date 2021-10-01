@@ -2,10 +2,53 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<!--    <meta http-equiv="refresh" content="5">-->
     <title>예약</title>
+    <style>
+        input {
+            width: 150px;
+            height: 50px;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            border-bottom: 3px solid black;
+            text-align: center;
+        }
+        .container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh;
+            border-top: 3px solid lightskyblue;
+            border-left: 3px solid lightskyblue;
+            border-right: 3px solid lightskyblue;
+            border-bottom: 3px solid lightskyblue;
+        }
+        button {
+            display: block;
+            -webkit-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+            -moz-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+            -ms-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+            -o-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+            transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+            margin: 20px auto;
+            max-width: 180px;
+            text-decoration: none;
+            border-radius: 4px;
+            padding: 20px 30px;
+        }
+        .sub {
+            color: rgba(30, 22, 54, 0.6);
+            box-shadow: rgba(30, 22, 54, 0.4) 0 0px 0px 2px inset;
+        }
+        .sub:hover {
+            color: rgba(255, 255, 255, 0.85);
+            box-shadow: rgba(30, 22, 54, 0.7) 0 0px 0px 40px inset;
+        }
+    </style>
 </head>
 <body>
+<h1 align="center" style="border-top: 3px solid dodgerblue; border-right: 3px solid dodgerblue; border-left: 3px solid dodgerblue; border-bottom: 3px solid dodgerblue;">예약</h1>
+<div class="container">
 <form name="reservationForm" action="/Guest/reserve" method="post" onsubmit="return check()">
     <input type="hidden" id="name" name="name" th:value="${id}">
     <input type="hidden" id="store_name" name="store_name" th:value="${store_name}">
@@ -20,8 +63,8 @@
     menuList.forEach(function(item){
        menu_name.push(item.menu_name);
        menu_price.push(item.price);
-       document.write(item.menu_name + "(" + item.price + "원)");
-       document.write("<input type='number' min='0' max='10000' placeholder='음식 수량' name='menuNumList[]' value='0'>개<br>");
+       document.write("<b>"+item.menu_name + "(" + item.price + "원)"+"</b>");
+       document.write("<input type='number' min='0' max='10000' placeholder='음식 수량' name='menuNumList[]' value='0'><b>개</b><br>");
     });
     document.write("<input type='hidden' name='menuNameList[]' value="+menu_name+">");
     document.write("<input type='hidden' name='menuPriceList[]' value="+menu_price+">");
@@ -43,7 +86,8 @@
     }
 </script>
 
-    <button type="submit">제출하기</button>
+    <button class="sub" type="submit"><b>예약하기</b></button>
 </form>
+</div>
 </body>
 </html>

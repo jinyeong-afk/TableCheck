@@ -2,22 +2,63 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>Title</title>
+    <title>매장 목록</title>
+    <style>
+        .container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh;
+            border-top: 3px solid lightskyblue;
+            border-left: 3px solid lightskyblue;
+            border-right: 3px solid lightskyblue;
+            border-bottom: 3px solid lightskyblue;
+        }
+    </style>
 </head>
 <body>
-<div class="container">
-    <div>
 
+<h1 align="center" style="border-top: 3px solid dodgerblue; border-right: 3px solid dodgerblue; border-left: 3px solid dodgerblue; border-bottom: 3px solid dodgerblue;">매장 목록</h1>
+<h2 align="center">검색결과</h2>
+<div class="container">
+    <div id="table">
+        <table border="3px">
+            <th>지역</th>
+            <th>가게이름</th>
+            <th>테이블수</th>
+            <th>오픈시간</th>
+            <th>클로즈시간</th>
+            <th>라스트오더</th>
+            <th>좌석확인</th>
             <form action="/Guest/tableCheck" method="post">
                 <input type="hidden" id="name" name="name" th:value="${id}">
             <tr th:each="value : ${store}">
-                <p style="display:inline" th:text="${value?.store_name}"></p>
-                <button type="submit" name="store_name" th:value="${value?.store_name}">
+                <td th:text="${value?.area}"></td>
+                <td th:text="${value?.store_name}"></td>
+                <td th:text="|${value?.table_x} x ${value?.table_y}|"></td>
+                <td th:text="${value?.open_time}"></td>
+                <td th:text="${value?.close_time}"></td>
+                <td th:text="${value?.last_order}"></td>
+                <td><button type="submit" name="store_name" th:value="${value?.store_name}">
                     좌석 확인
-                </button><br>
+                </button></td>
             </tr>
             </form>
+        </table>
     </div>
 </div>
+<script th:inline="javascript">
+    function delDiv() {
+        var store = [[${store}]];
+        var div;
+        if(store == "")
+        {
+            div = document.getElementById("table");
+            div.style.display = 'block';
+            div.innerHTML = "<h2>검색 결과가 존재하지 않습니다.</h2>";
+        }
+    }
+    delDiv();
+</script>
 </body>
 </html>
