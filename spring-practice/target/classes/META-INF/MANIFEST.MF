@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Main-Class: practice.springpractice.SpringPracticeApplication
+Class-Path: spring-web-5.3.9.jar spring-webmvc-5.3.9.jar spring-core-5.3
+ .9.jar
+
