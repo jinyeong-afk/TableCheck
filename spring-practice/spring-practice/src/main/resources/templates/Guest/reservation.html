@@ -17,7 +17,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 80vh;
+            min-height: 60vh;
             border-top: 3px solid lightskyblue;
             border-left: 3px solid lightskyblue;
             border-right: 3px solid lightskyblue;
@@ -49,7 +49,9 @@
 <body>
 <h1 align="center" style="border-top: 3px solid dodgerblue; border-right: 3px solid dodgerblue; border-left: 3px solid dodgerblue; border-bottom: 3px solid dodgerblue;">예약</h1>
 <div class="container">
+
 <form name="reservationForm" action="/Guest/reserve" method="post" onsubmit="return check()">
+    <h2 align="center">메뉴</h2>
     <input type="hidden" id="name" name="name" th:value="${id}">
     <input type="hidden" id="store_name" name="store_name" th:value="${store_name}">
     <input type="hidden" id="seat" name="seat" th:value="${seat}">

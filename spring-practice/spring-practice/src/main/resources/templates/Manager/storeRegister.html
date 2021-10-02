@@ -4,8 +4,47 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>매장 등록</title>
+    <style>
+
+        .container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+            border-top: 3px solid lightskyblue;
+            border-left: 3px solid lightskyblue;
+            border-right: 3px solid lightskyblue;
+            border-bottom: 3px solid lightskyblue;
+        }
+        button, input {
+            -webkit-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+            -moz-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+            -ms-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+            -o-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+            transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+            margin: 20px auto;
+            max-width: 180px;
+            text-decoration: none;
+            border-radius: 4px;
+            padding: 10px 15px;
+        }
+        .sub{
+            display: block;
+        }
+        button, .addMenu, .delMenu {
+            color: rgba(30, 22, 54, 0.6);
+            box-shadow: rgba(30, 22, 54, 0.4) 0 0px 0px 2px inset;
+        }
+        button:hover, .addMenu:hover, .delMenu:hover {
+            color: rgba(255, 255, 255, 0.85);
+            box-shadow: rgba(30, 22, 54, 0.7) 0 0px 0px 40px inset;
+        }
+    </style>
 </head>
 <body>
+<h1 align="center" style="border-top: 3px solid dodgerblue; border-right: 3px solid dodgerblue; border-left: 3px solid dodgerblue; border-bottom: 3px solid dodgerblue;">매장 등록</h1>
+<div class="container">
 <script th:inline="javascript">
     var count = 1
     function check(){
@@ -68,8 +107,8 @@
         document.getElementById('parah').innerHTML="";
         for (intI=0;intI<arrInput.length;intI++) {
             count += 1
-            document.getElementById('parah').innerHTML= document.getElementById('parah').innerHTML +
-                count + createInput(arrInput[intI], arrInputValue[intI]) + createInput2(arrInput2[intI], arrInputValue2[intI]);
+            document.getElementById('parah').innerHTML= "<b>"+document.getElementById('parah').innerHTML +
+                count + createInput(arrInput[intI], arrInputValue[intI]) + createInput2(arrInput2[intI], arrInputValue2[intI])+"</b>";
         }
     }
 
@@ -104,22 +143,23 @@
 </script>
 
 <form name="storeFm" action="/store/saveData" method="post" onsubmit="return check()">
-    매장명 &nbsp; &nbsp;<input type="text" id="store_name" name="store_name"><br>
-    관리자명 <input type="text" id="manager" name="manager"><br>
-    지역명 &nbsp; &nbsp;<input type="text" id="area" name="area"><br>
-    테이블수 <input type="text" id="table_x" name="table_x" placeholder="가로"> x
+    <b>매장명 &nbsp; &nbsp;<input type="text" id="store_name" name="store_name"></b><br>
+    <b>관리자명 <input type="text" id="manager" name="manager"></b><br>
+    <b>지역명 &nbsp; &nbsp;<input type="text" id="area" name="area"></b><br>
+    <b>테이블수 <input type="text" id="table_x" name="table_x" placeholder="가로"> x
     <input type="text" id="table_y" name="table_y" placeholder="세로"/><br>
-    오픈시간 <input type="time" id="open_time" name="open_time" > 마감시간 <input type="time" id="close_time" name="close_time"> 라스트오더 <input type="time" id="last_order" name="last_order"><br>
+    오픈시간 <input type="time" id="open_time" name="open_time" > 마감시간 <input type="time" id="close_time" name="close_time"> 라스트오더 <input type="time" id="last_order" name="last_order"></b><br>
     <input type="hidden" id="id" name="id" th:value="${memberId}">
     <input type="hidden" id="throws_value" name="throws_value" value="save">
-    메뉴&nbsp;&nbsp;&nbsp;
-    가격  <input type="button" value="메뉴 수 추가" onclick="addInput()">
-    <input type="button" value="메뉴 삭제" onclick="deleteInput()"><br>
-    1. <input type="text" name="menuList[]" placeholder="메뉴 이름">  <input type="text" name="priceList[]" placeholder="메뉴 가격"><br>
-    <div id="parah">
+    <b>메뉴&nbsp;&nbsp;&nbsp;
+    가격  <input class="addMenu" type="button" value="메뉴 수 추가" onclick="addInput()"></b>
+    <b><input class="delMenu" type="button" value="메뉴 삭제" onclick="deleteInput()"></b><br>
+    <b>1. <input type="text" name="menuList[]" placeholder="메뉴 이름">  <input type="text" name="priceList[]" placeholder="메뉴 가격"></b><br>
+    <div class="parah" id="parah">
 
     </div>
-    <button type="submit">제출</button>
+    <button class="sub" type="submit"><b>등록</b></button>
 </form>
+</div>
 </body>
 </html>
