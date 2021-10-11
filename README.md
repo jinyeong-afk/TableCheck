@@ -1,4 +1,4 @@
-### UniversityHomepage-WebCrawling
+### TableCheck
 SpringBoot를 이용한 개인 프로젝트 내용: 음식점 좌석 현황 확인 및 예약 웹사이트
 
 📌사용 기술 스택
