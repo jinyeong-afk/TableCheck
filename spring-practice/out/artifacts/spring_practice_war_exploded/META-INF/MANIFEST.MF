@@ -1,5 +1,2 @@
 Manifest-Version: 1.0
-Created-By: IntelliJ IDEA
-Built-By: jin
-Build-Jdk: Azul Zulu Community™ version 11.0.10
 

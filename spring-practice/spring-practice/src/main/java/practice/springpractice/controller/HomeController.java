@@ -23,14 +23,9 @@ public class HomeController {
         this.storeService = storeService;
     }
 
-    @GetMapping("home")
-    public String getHome() {
-        return "home";
-    }
-
     @GetMapping("/")
     public String home() {
-        return "home";
+        return "home2";
     }
 
     @PostMapping("login")
