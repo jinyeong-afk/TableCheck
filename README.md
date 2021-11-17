@@ -9,7 +9,6 @@ SpringBoot를 이용한 개인 프로젝트 내용: 음식점 좌석 현황 확�
 📌사용 도구 및 서비스
 - IDE: IntelliJ IDEA Ultimate
 - H2 Database
-- NaverCloud Server
 
 ### 개요
 현재 대기표 출력 프로그램은 상용화 되어 많은 음식점에서 사용되고 있지만 좌석 현황을 확인할 수 있는 프로그램은 상용화 되어 있지 않다.
